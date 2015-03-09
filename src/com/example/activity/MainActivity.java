@@ -4,7 +4,11 @@ import com.example.activity.ResultActivity;
 import com.example.test2.R;
 
 import android.support.v7.app.ActionBarActivity;
+import android.text.TextUtils;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,6 +20,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import com.example.util.TimeMgr;
+import com.example.util.Config;
 
 public class MainActivity extends ActionBarActivity {
 	
@@ -37,6 +42,40 @@ public class MainActivity extends ActionBarActivity {
 		}
 	}
 	
+	// 监听按下home键
+	private class HomeBtnReceiver extends BroadcastReceiver {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			String action = intent.getAction();
+			
+			if(action.equals(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)) {
+				boolean isStop = false;
+				String reason = intent.getStringExtra(Config.SYSTEM_REASON);
+				
+				if(TextUtils.equals(reason, Config.SYSTEM_HOME_KEY)) {
+					isStop = true;
+				}
+				else if(TextUtils.equals(reason, Config.SYSTEM_HOME_KEY_LONG)) {
+					isStop = true;
+				}
+				if(isStop) {
+					jumpToResultActivity();
+				}
+			}
+			
+		}
+	}
+	
+	// 注册：监听相关广播
+	private void initReceiver() {
+		HomeBtnReceiver mHomeBtnReceiver = new HomeBtnReceiver();
+		mHomeBtnReceiver = new HomeBtnReceiver();
+    	IntentFilter filter = new IntentFilter();
+    	filter.setPriority(1000);
+    	filter.addAction(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
+    	registerReceiver(mHomeBtnReceiver, filter);
+	}
+	
 	private void initResorces() {
 		TimeMgr.setState(TimeMgr.TimeState.TIME_NONE);
 		
@@ -52,14 +91,27 @@ public class MainActivity extends ActionBarActivity {
     			TimeMgr.setState(TimeMgr.TimeState.TIME_ING);
     		}
     	});
-    }
+    	
+    	initReceiver();
+	}
+	
+	private void shutDownTimer() {
+		if(mTimer != null) {
+			mTask.cancel();
+			mTimer.purge();
+			mTask = null;
+		}
+	}
 	
 	private void jumpToResultActivity() {
+		shutDownTimer();
 		TimeMgr.setState(TimeMgr.TimeState.TIME_NONE);
 		Intent intent = new Intent();
 		intent.setClass(MainActivity.this, ResultActivity.class);
 		startActivity(intent);
 	}
+	
+	// ---------  下面为activity执行开始   ---------
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,11 +124,6 @@ public class MainActivity extends ActionBarActivity {
  	@Override
      public void onBackPressed() {
  		if(TimeMgr.getState() == TimeMgr.TimeState.TIME_ING) {
- 			if(mTimer != null) {
- 				mTask.cancel();
- 				mTimer.purge();
- 				mTask = null;
- 			}
  			jumpToResultActivity();
  			return;
  		}

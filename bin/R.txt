@@ -408,6 +408,7 @@ int drawable abc_textfield_searchview_holo_light 0x7f020079
 int drawable abc_textfield_searchview_right_holo_dark 0x7f02007a
 int drawable abc_textfield_searchview_right_holo_light 0x7f02007b
 int drawable ic_launcher 0x7f02007c
+int drawable start_btn 0x7f02007d
 int id action_bar 0x7f090020
 int id action_bar_activity_content 0x7f090003
 int id action_bar_container 0x7f09001f

@@ -1707,6 +1707,7 @@ containing a value of this type.
         public static final int abc_textfield_searchview_right_holo_dark=0x7f02007a;
         public static final int abc_textfield_searchview_right_holo_light=0x7f02007b;
         public static final int ic_launcher=0x7f02007c;
+        public static final int start_btn=0x7f02007d;
     }
     public static final class id {
         public static final int action_bar=0x7f090020;
