@@ -1,13 +1,14 @@
 package com.example.activity;
 
 import com.example.test2.R;
+
 import com.example.util.TimeMgr;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
 import android.widget.TextView;
 
-public class ResultActivity extends ActionBarActivity {
+public class ResultActivity extends Activity {
 	
 	private TextView mTextTime;
 	

@@ -3,8 +3,7 @@ package com.example.activity;
 import com.example.activity.ResultActivity;
 import com.example.test2.R;
 
-import android.support.v7.app.ActionBarActivity;
-import android.text.TextUtils;
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -16,18 +15,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import android.text.TextUtils;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
 import com.example.util.TimeMgr;
 import com.example.util.Config;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
 	
 	private Button mStartBtn;
 	private TextView mTimeText;
 	private Timer mTimer = new Timer();
 	private TimerTask mTask;
+	private HomeBtnReceiver mHomeBtnReceiver;
 	
 	private class MyTimerTask extends TimerTask {
 		@Override
@@ -43,6 +45,7 @@ public class MainActivity extends ActionBarActivity {
 	}
 	
 	// 监听按下home键
+	// 接听处理后立即取消监听
 	private class HomeBtnReceiver extends BroadcastReceiver {
 		@Override
 		public void onReceive(Context context, Intent intent) {
@@ -63,17 +66,17 @@ public class MainActivity extends ActionBarActivity {
 				}
 			}
 			
+			unregisterReceiver(mHomeBtnReceiver);
 		}
 	}
 	
 	// 注册：监听相关广播
 	private void initReceiver() {
-		HomeBtnReceiver mHomeBtnReceiver = new HomeBtnReceiver();
 		mHomeBtnReceiver = new HomeBtnReceiver();
-    	IntentFilter filter = new IntentFilter();
-    	filter.setPriority(1000);
-    	filter.addAction(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
-    	registerReceiver(mHomeBtnReceiver, filter);
+	    IntentFilter filter = new IntentFilter();
+	    filter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
+	    filter.addAction(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
+	    registerReceiver(mHomeBtnReceiver, filter);
 	}
 	
 	private void initResorces() {
@@ -85,6 +88,9 @@ public class MainActivity extends ActionBarActivity {
     	mStartBtn.setOnClickListener(new View.OnClickListener() {
     		@Override
 			public void onClick(View v) {
+    			if(mTask != null) {
+    				return ;
+    			}
     			TimeMgr.resetTime();
     			mTask = new MyTimerTask();
     			mTimer.schedule(mTask, 500, 1000);
@@ -96,7 +102,8 @@ public class MainActivity extends ActionBarActivity {
 	}
 	
 	private void shutDownTimer() {
-		if(mTimer != null) {
+		TimeMgr.setState(TimeMgr.TimeState.TIME_NONE);
+		if(null != mTimer && null != mTask) {
 			mTask.cancel();
 			mTimer.purge();
 			mTask = null;
@@ -105,7 +112,6 @@ public class MainActivity extends ActionBarActivity {
 	
 	private void jumpToResultActivity() {
 		shutDownTimer();
-		TimeMgr.setState(TimeMgr.TimeState.TIME_NONE);
 		Intent intent = new Intent();
 		intent.setClass(MainActivity.this, ResultActivity.class);
 		startActivity(intent);
@@ -117,9 +123,24 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initResorces();
     }
     
+    @Override
+    protected void onStart() {
+    	super.onStart();
+    }
+    
+    @Override
+    protected void onResume() {
+    	initResorces();
+    	super.onResume();
+    }
+    
+    @Override
+    protected void onPause() {
+    	super.onPause();
+    }
+
     // 监听back返回键
  	@Override
      public void onBackPressed() {
@@ -127,7 +148,6 @@ public class MainActivity extends ActionBarActivity {
  			jumpToResultActivity();
  			return;
  		}
- 		
  		super.onBackPressed();
  	}
 
