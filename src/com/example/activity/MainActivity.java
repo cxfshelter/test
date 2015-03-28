@@ -1,5 +1,8 @@
 package com.example.activity;
 
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.onekeyshare.OnekeyShare;
+
 import com.example.activity.ResultActivity;
 import com.example.test2.R;
 
@@ -14,7 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import android.text.TextUtils;
 
 import java.util.Timer;
@@ -100,6 +102,10 @@ public class MainActivity extends Activity {
     	
     	initReceiver();
 	}
+	
+	
+	
+
 	
 	private void shutDownTimer() {
 		TimeMgr.setState(TimeMgr.TimeState.TIME_NONE);
