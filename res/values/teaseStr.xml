@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string-array name="least_than_oneMin">
+    	<item>你玩J8毛的手机</item>
+    	<item>不玩手机能死</item>
+    	<item>你可真是没事干了</item>
+    </string-array>
+    
+</resources>
