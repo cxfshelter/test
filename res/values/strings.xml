@@ -7,5 +7,6 @@
 
     <string name="main_startBtn">开始 拯救</string>
     <string name="main_notstartText">尚未开始</string>
+    <string name="shareText">分    享</string>
     
 </resources>

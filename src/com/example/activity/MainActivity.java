@@ -1,13 +1,11 @@
 package com.example.activity;
 
 import com.example.activity.ResultActivity;
+import com.example.service.MonitorService;
 import com.example.test2.R;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,13 +13,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import android.text.TextUtils;
-
 import java.util.Timer;
 import java.util.TimerTask;
 
 import com.example.util.TimeMgr;
-import com.example.util.Config;
 
 public class MainActivity extends Activity {
 	
@@ -29,7 +24,6 @@ public class MainActivity extends Activity {
 	private TextView mTimeText;
 	private Timer mTimer = new Timer();
 	private TimerTask mTask;
-	private HomeBtnReceiver mHomeBtnReceiver;
 	
 	private class MyTimerTask extends TimerTask {
 		@Override
@@ -42,41 +36,6 @@ public class MainActivity extends Activity {
 				}
 			});
 		}
-	}
-	
-	// 监听按下home键
-	// 接听处理后立即取消监听
-	private class HomeBtnReceiver extends BroadcastReceiver {
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			String action = intent.getAction();
-			
-			if(action.equals(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)) {
-				boolean isStop = false;
-				String reason = intent.getStringExtra(Config.SYSTEM_REASON);
-				
-				if(TextUtils.equals(reason, Config.SYSTEM_HOME_KEY)) {
-					isStop = true;
-				}
-				else if(TextUtils.equals(reason, Config.SYSTEM_HOME_KEY_LONG)) {
-					isStop = true;
-				}
-				if(isStop) {
-					jumpToResultActivity();
-				}
-			}
-			
-			unregisterReceiver(mHomeBtnReceiver);
-		}
-	}
-	
-	// 注册：监听相关广播
-	private void initReceiver() {
-		mHomeBtnReceiver = new HomeBtnReceiver();
-	    IntentFilter filter = new IntentFilter();
-	    filter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
-	    filter.addAction(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
-	    registerReceiver(mHomeBtnReceiver, filter);
 	}
 	
 	private void initResorces() {
@@ -98,7 +57,6 @@ public class MainActivity extends Activity {
     		}
     	});
     	
-    	initReceiver();
 	}
 	
 	private void shutDownTimer() {
@@ -123,6 +81,8 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        initResorces();
     }
     
     @Override
@@ -132,12 +92,14 @@ public class MainActivity extends Activity {
     
     @Override
     protected void onResume() {
-    	initResorces();
     	super.onResume();
     }
     
     @Override
     protected void onPause() {
+    	if(TimeMgr.getState() == TimeMgr.TimeState.TIME_ING) {
+    		MonitorService.startMonitor(this);
+    	}
     	super.onPause();
     }
 
@@ -153,16 +115,12 @@ public class MainActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
