@@ -4,4 +4,9 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <dimen name="best_score_text">16sp</dimen>
+    <dimen name="last_score_text">16sp</dimen>
+
+    <dimen name="middle_margin">13dp</dimen>
+
 </resources>
