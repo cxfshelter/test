@@ -32,7 +32,7 @@ public class RecordUtil {
      * @param context 上下文
      * @return 上一次成绩
      */
-    public static long getLastScore(Context context) {
+    public static int getLastScore(Context context) {
         return getScore(LAST_SCORE_KEY, context);
     }
 
@@ -41,8 +41,35 @@ public class RecordUtil {
      * @param context 上下文
      * @return 最好成绩
      */
-    public static long getBestScore(Context context) {
+    public static int getBestScore(Context context) {
         return getScore(BEST_SCORE_KEY, context);
+    }
+
+    /**
+     * 存储上一次成绩
+     * @param context 上下文
+     * @param score 分数
+     */
+    public static void setLastScore(Context context, int score) {
+        setScore(LAST_SCORE_KEY, context, score);
+    }
+
+    /**
+     * 存储最好成绩
+     * @param context 上下文
+     * @param score 分数
+     */
+    public static void setBestScore(Context context, int score) {
+        setScore(BEST_SCORE_KEY, context, score);
+    }
+
+    /**
+     * 把“秒”为单位的成绩转换为显示格式“**h**min**sec”成绩
+     * @param score 以“秒”为单位的成绩
+     * @return 显示格式的成绩
+     */
+    public static String getDisplayFormatScore(int score) {
+        return score / 60 / 60 + "h" + score / 60 % 60 + "min" + score % 60 + "sec";
     }
 
     /**
@@ -51,9 +78,9 @@ public class RecordUtil {
      * @param context 上下文
      * @return 成绩
      */
-    public static long getScore(String key, Context context) {
+    public static int getScore(String key, Context context) {
         SharedPreferences sp = context.getSharedPreferences(SCORE_SP_KEY, Context.MODE_PRIVATE);
-        return sp.getLong(key, 0);
+        return sp.getInt(key, 0);
     }
 
     /**
@@ -62,10 +89,10 @@ public class RecordUtil {
      * @param context 上下文
      * @param score 要存入的成绩
      */
-    public static void setScore(String key, Context context, long score) {
+    public static void setScore(String key, Context context, int score) {
         SharedPreferences sp = context.getSharedPreferences(SCORE_SP_KEY, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
-        editor.putLong(key, score);
+        editor.putInt(key, score);
         editor.apply();
     }
 }
