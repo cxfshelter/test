@@ -70,6 +70,7 @@ public class MainActivity extends Activity {
 	
 	private void jumpToResultActivity() {
 		shutDownTimer();
+		MonitorService.stopMonitor(MainActivity.this);
 		Intent intent = new Intent();
 		intent.setClass(MainActivity.this, ResultActivity.class);
 		startActivity(intent);

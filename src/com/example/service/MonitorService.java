@@ -1,19 +1,27 @@
 package com.example.service;
 
-import com.example.util.Config;
-
 import android.app.ActivityManager;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
+import android.os.SystemClock;
+
+import com.example.util.Config;
 
 /**
  * 用于检测当前应用退出后（并且还处于正在倒计时状态），检测用户有无开启新应用
  * 有则关闭开启应用并跳转到倒计时界面
  */
 public class MonitorService extends Service{
+	
+	static boolean mFlag = false;
+	static AlarmManager mAlarm = null;
+	static PendingIntent mPend = null;
 	
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -52,8 +60,32 @@ public class MonitorService extends Service{
 	}
 	
 	public static void startMonitor(Context context) {
-		Intent intent = new Intent(context, MonitorService.class);
-		context.startService(intent);
+		if(!mFlag) {
+			if(mAlarm == null) {
+				mAlarm = (AlarmManager)context.getSystemService(ALARM_SERVICE);
+			}
+			if(mPend == null) {
+				mPend = PendingIntent.getService(context, 0, new Intent(context, MonitorService.class), 0);
+			}
+			mAlarm.setRepeating(AlarmManager.RTC_WAKEUP, SystemClock.currentThreadTimeMillis(), 1, mPend);
+			mFlag = true;
+		}
+		
+		//Intent intent = new Intent(context, MonitorService.class);
+		//context.startService(intent);
+	}
+	
+	public static void stopMonitor(Context context) {
+		if(mFlag) {
+			if(mAlarm == null) {
+				mAlarm = (AlarmManager)context.getSystemService(ALARM_SERVICE);
+			}
+			if(mPend == null) {
+				mPend = PendingIntent.getService(context, 0, new Intent(context, MonitorService.class), 0);
+			}
+			mAlarm.cancel(mPend);
+			mFlag = false;
+		}
 	}
 	
 }
