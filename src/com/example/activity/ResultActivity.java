@@ -10,6 +10,7 @@ import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
 import com.example.test2.R;
+import com.example.util.RecordUtil;
 import com.example.util.TimeMgr;
 
 public class ResultActivity extends Activity implements OnClickListener {
@@ -20,6 +21,12 @@ public class ResultActivity extends Activity implements OnClickListener {
 	private void initResources() {
 		mTextTime = (TextView) findViewById(R.id.textFinalTime);
 		mShareBtn = (Button)findViewById(R.id.shareBtn);
+
+        int bestScore = RecordUtil.getBestScore(this);
+        if (bestScore < TimeMgr.getTime()) {
+            RecordUtil.setBestScore(this, TimeMgr.getTime());
+        }
+        RecordUtil.setLastScore(this, TimeMgr.getTime());
 		mTextTime.setText(TimeMgr.getTime() + "s");
 		mShareBtn.setOnClickListener(this);
 		TimeMgr.resetTime();
@@ -54,28 +61,28 @@ public class ResultActivity extends Activity implements OnClickListener {
 		
 		ShareSDK.initSDK(this);
 		OnekeyShare oks = new OnekeyShare();
-		// ¹Ø±ÕssoÊÚÈ¨
+		// ï¿½Ø±ï¿½ssoï¿½ï¿½È¨
 		oks.disableSSOWhenAuthorize();
-		// ·ÖÏíÊ±NotificationµÄÍ¼±êºÍÎÄ×Ö
+		// ï¿½ï¿½ï¿½ï¿½Ê±Notificationï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //		oks.setNotification(R.drawable.ic_launcher,
 //				this.getString(R.string.app_name));
-		// title±êÌâ£¬Ó¡Ïó±Ê¼Ç¡¢ÓÊÏä¡¢ÐÅÏ¢¡¢Î¢ÐÅ¡¢ÈËÈËÍøºÍQQ¿Õ¼äÊ¹ÓÃ
-		oks.setTitle("ÄãÄÜhold×¡Âð£¿");
-		// titleUrlÊÇ±êÌâµÄÍøÂçÁ´½Ó£¬½öÔÚÈËÈËÍøºÍQQ¿Õ¼äÊ¹ÓÃ
+		// titleï¿½ï¿½ï¿½â£¬Ó¡ï¿½ï¿½Ê¼Ç¡ï¿½ï¿½ï¿½ï¿½ä¡¢ï¿½ï¿½Ï¢ï¿½ï¿½Î¢ï¿½Å¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½QQï¿½Õ¼ï¿½Ê¹ï¿½ï¿½
+		oks.setTitle("ï¿½ï¿½ï¿½ï¿½hold×¡ï¿½ï¿½");
+		// titleUrlï¿½Ç±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½QQï¿½Õ¼ï¿½Ê¹ï¿½ï¿½
 //		oks.setTitleUrl("http://10.163.7.91:8080/scrawl");
-		// textÊÇ·ÖÏíÎÄ±¾£¬ËùÓÐÆ½Ì¨¶¼ÐèÒªÕâ¸ö×Ö¶Î
-		oks.setText("¸çÄÜÔÚ¡¾Ô¶ÀëÊÖ»úAPP¡¿¼á³Ö"+shareTime+"£¬ÄãÄÜhold×¡Âð£¿");
-		// imagePathÊÇÍ¼Æ¬µÄ±¾µØÂ·¾¶£¬Linked-InÒÔÍâµÄÆ½Ì¨¶¼Ö§³Ö´Ë²ÎÊý
-		// url½öÔÚÎ¢ÐÅ£¨°üÀ¨ºÃÓÑºÍÅóÓÑÈ¦£©ÖÐÊ¹ÓÃ
+		// textï¿½Ç·ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ½Ì¨ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Ö¶ï¿½
+		oks.setText("ï¿½ï¿½ï¿½ï¿½ï¿½Ú¡ï¿½Ô¶ï¿½ï¿½ï¿½Ö»ï¿½APPï¿½ï¿½ï¿½ï¿½ï¿½"+shareTime+"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½hold×¡ï¿½ï¿½");
+		// imagePathï¿½ï¿½Í¼Æ¬ï¿½Ä±ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½Linked-Inï¿½ï¿½ï¿½ï¿½ï¿½Æ½Ì¨ï¿½ï¿½Ö§ï¿½Ö´Ë²ï¿½ï¿½ï¿½
+		// urlï¿½ï¿½ï¿½ï¿½Î¢ï¿½Å£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñºï¿½ï¿½ï¿½ï¿½ï¿½È¦ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½
 //		oks.setUrl("http://10.163.7.91:8080/scrawl/publish/10.jpg");
-		// commentÊÇÎÒ¶ÔÕâÌõ·ÖÏíµÄÆÀÂÛ£¬½öÔÚÈËÈËÍøºÍQQ¿Õ¼äÊ¹ÓÃ
-		oks.setComment("¸çÄÜÔÚ¡¾Ô¶ÀëÊÖ»úAPP¡¿¼á³Ö"+shareTime+"£¬ÄãÄÜhold×¡Âð£¿");
-		// siteÊÇ·ÖÏí´ËÄÚÈÝµÄÍøÕ¾Ãû³Æ£¬½öÔÚQQ¿Õ¼äÊ¹ÓÃ
+		// commentï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½QQï¿½Õ¼ï¿½Ê¹ï¿½ï¿½
+		oks.setComment("ï¿½ï¿½ï¿½ï¿½ï¿½Ú¡ï¿½Ô¶ï¿½ï¿½ï¿½Ö»ï¿½APPï¿½ï¿½ï¿½ï¿½ï¿½"+shareTime+"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½hold×¡ï¿½ï¿½");
+		// siteï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ýµï¿½ï¿½ï¿½Õ¾ï¿½ï¿½ï¿½Æ£ï¿½ï¿½ï¿½ï¿½ï¿½QQï¿½Õ¼ï¿½Ê¹ï¿½ï¿½
 		oks.setSite(this.getString(R.string.app_name));
-		// siteUrlÊÇ·ÖÏí´ËÄÚÈÝµÄÍøÕ¾µØÖ·£¬½öÔÚQQ¿Õ¼äÊ¹ÓÃ
+		// siteUrlï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ýµï¿½ï¿½ï¿½Õ¾ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½QQï¿½Õ¼ï¿½Ê¹ï¿½ï¿½
 //		oks.setSiteUrl("http://10.163.7.91:8080/scrawl");
 //		oks.setImagePath(imagePath);
-		// Æô¶¯·ÖÏíGUI
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½GUI
 		oks.show(this);
 	}
 	

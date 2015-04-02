@@ -16,12 +16,16 @@ import android.widget.TextView;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.example.util.RecordUtil;
 import com.example.util.TimeMgr;
 
 public class MainActivity extends Activity {
-	
+
+    private TextView tvBestScore;
+    private TextView tvLastScore;
 	private Button mStartBtn;
 	private TextView mTimeText;
+
 	private Timer mTimer = new Timer();
 	private TimerTask mTask;
 	
@@ -43,23 +47,32 @@ public class MainActivity extends Activity {
 		
 		mStartBtn = (Button) findViewById(R.id.btnStart);
     	mTimeText = (TextView) findViewById(R.id.textTime);
-    	
-    	mStartBtn.setOnClickListener(new View.OnClickListener() {
-    		@Override
-			public void onClick(View v) {
-    			if(mTask != null) {
-    				return ;
-    			}
-    			TimeMgr.resetTime();
-    			mTask = new MyTimerTask();
-    			mTimer.schedule(mTask, 500, 1000);
-    			TimeMgr.setState(TimeMgr.TimeState.TIME_ING);
-    		}
-    	});
+        tvLastScore = (TextView) findViewById(R.id.tvLastScore);
+        tvBestScore = (TextView) findViewById(R.id.tvBestScore);
+
+        mStartBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mTask != null) {
+                    return;
+                }
+                TimeMgr.resetTime();
+                mTask = new MyTimerTask();
+                mTimer.schedule(mTask, 500, 1000);
+                TimeMgr.setState(TimeMgr.TimeState.TIME_ING);
+            }
+        });
     	
 	}
-	
-	private void shutDownTimer() {
+
+    private void displayScore() {
+        tvLastScore.setText("Last: " + RecordUtil.getDisplayFormatScore(RecordUtil
+                .getLastScore(this)));
+        tvBestScore.setText("Best: " + RecordUtil.getDisplayFormatScore(RecordUtil
+                .getBestScore(this)));
+    }
+
+    private void shutDownTimer() {
 		TimeMgr.setState(TimeMgr.TimeState.TIME_NONE);
 		if(null != mTimer && null != mTask) {
 			mTask.cancel();
@@ -75,7 +88,7 @@ public class MainActivity extends Activity {
 		startActivity(intent);
 	}
 	
-	// ---------  ÏÂÃæÎªactivityÖ´ÐÐ¿ªÊ¼   ---------
+	// ---------  ï¿½ï¿½ï¿½ï¿½ÎªactivityÖ´ï¿½Ð¿ï¿½Ê¼   ---------
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +106,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
     	super.onResume();
+        displayScore();
     }
     
     @Override
@@ -103,7 +117,7 @@ public class MainActivity extends Activity {
     	super.onPause();
     }
 
-    // ¼àÌýback·µ»Ø¼ü
+    // ï¿½ï¿½ï¿½ï¿½backï¿½ï¿½ï¿½Ø¼ï¿½
  	@Override
      public void onBackPressed() {
  		if(TimeMgr.getState() == TimeMgr.TimeState.TIME_ING) {
