@@ -89,13 +89,12 @@ public class MainActivity extends Activity {
 		startActivity(intent);
 	}
 	
-	// ---------  ����Ϊactivityִ�п�ʼ   ---------
+	// ------------------
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
         initResorces();
     }
     
@@ -118,7 +117,6 @@ public class MainActivity extends Activity {
     	super.onPause();
     }
 
-    // ����back���ؼ�
  	@Override
      public void onBackPressed() {
  		if(TimeMgr.getState() == TimeMgr.TimeState.TIME_ING) {
