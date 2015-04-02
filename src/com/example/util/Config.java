@@ -1,4 +1,4 @@
-package com.example.util;
+ï»¿package com.example.util;
 
 public class Config {
 	
@@ -6,7 +6,7 @@ public class Config {
 	public static final String SYSTEM_HOME_KEY = "homekey";
 	public static final String SYSTEM_HOME_KEY_LONG = "recentapps";
 	
-	// ¸Ä£ºÕâÀï½«¸ü¸ÄÎªruntimeÖĞ»ñÈ¡¸üÎªÎÈÍ×
+	// æ”¹ï¼šè¿™é‡Œå°†æ›´æ”¹ä¸ºruntimeä¸­è·å–æ›´ä¸ºç¨³å¦¥
 	public static final String LAUNCHER_ACT = "com.example.activity.MainActivity";
 	
 }

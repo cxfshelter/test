@@ -1,4 +1,4 @@
-package com.example.service;
+ï»¿package com.example.service;
 
 import android.app.ActivityManager;
 import android.app.AlarmManager;
@@ -14,8 +14,8 @@ import android.os.SystemClock;
 import com.example.util.Config;
 
 /**
- * ÓÃÓÚ¼ì²âµ±Ç°Ó¦ÓÃÍË³öºó£¨²¢ÇÒ»¹´¦ÓÚÕıÔÚµ¹¼ÆÊ±×´Ì¬£©£¬¼ì²âÓÃ»§ÓĞÎŞ¿ªÆôĞÂÓ¦ÓÃ
- * ÓĞÔò¹Ø±Õ¿ªÆôÓ¦ÓÃ²¢Ìø×ªµ½µ¹¼ÆÊ±½çÃæ
+ * ç”¨äºæ£€æµ‹å½“å‰åº”ç”¨é€€å‡ºåï¼ˆå¹¶ä¸”è¿˜å¤„äºæ­£åœ¨å€’è®¡æ—¶çŠ¶æ€ï¼‰ï¼Œæ£€æµ‹ç”¨æˆ·æœ‰æ— å¼€å¯æ–°åº”ç”¨
+ * æœ‰åˆ™å…³é—­å¼€å¯åº”ç”¨å¹¶è·³è½¬åˆ°å€’è®¡æ—¶ç•Œé¢
  */
 public class MonitorService extends Service{
 	
