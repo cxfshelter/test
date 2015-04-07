@@ -108,8 +108,7 @@ public class MainActivity extends Activity {
 		startActivity(intent);
 	}
 	
-	// ------------------
-	
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -137,7 +136,8 @@ public class MainActivity extends Activity {
     	super.onPause();
     }
 
- 	@Override
+
+    @Override
      public void onBackPressed() {
  		if(TimeMgr.getState() == TimeMgr.TimeState.TIME_ING) {
  			jumpToResultActivity();
