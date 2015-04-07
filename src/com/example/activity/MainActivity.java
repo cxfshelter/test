@@ -1,4 +1,4 @@
-package com.example.activity;
+﻿package com.example.activity;
 
 import com.example.activity.ResultActivity;
 import com.example.service.MonitorService;
@@ -83,18 +83,18 @@ public class MainActivity extends Activity {
 	
 	private void jumpToResultActivity() {
 		shutDownTimer();
+		MonitorService.stopMonitor(MainActivity.this);
 		Intent intent = new Intent();
 		intent.setClass(MainActivity.this, ResultActivity.class);
 		startActivity(intent);
 	}
 	
-	// ---------  下面为activity执行开始   ---------
-	
+
+	// ---------  下面为activity执行开始   ---------	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
         initResorces();
     }
     
@@ -117,8 +117,9 @@ public class MainActivity extends Activity {
     	super.onPause();
     }
 
-    // 监听back返回键
- 	@Override
+
+    // 监听back返回键 	
+    @Override
      public void onBackPressed() {
  		if(TimeMgr.getState() == TimeMgr.TimeState.TIME_ING) {
  			jumpToResultActivity();

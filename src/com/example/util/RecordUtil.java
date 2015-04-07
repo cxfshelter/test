@@ -1,4 +1,4 @@
-package com.example.util;
+﻿package com.example.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -69,7 +69,7 @@ public class RecordUtil {
      * @return 显示格式的成绩
      */
     public static String getDisplayFormatScore(int score) {
-        return score / 60 / 60 + "h" + score / 60 % 60 + "min" + score % 60 + "sec";
+        return score / 60 / 60 + "小时" + score / 60 % 60 + "分钟" + score % 60 + "秒";
     }
 
     /**

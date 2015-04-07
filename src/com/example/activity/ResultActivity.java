@@ -1,4 +1,4 @@
-package com.example.activity;
+﻿package com.example.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -26,10 +26,13 @@ public class ResultActivity extends Activity implements OnClickListener {
 		mShareBtn = (Button)findViewById(R.id.shareBtn);
 
         int bestScore = RecordUtil.getBestScore(this);
+        int lastScore = RecordUtil.getLastScore(this);
         if (bestScore < TimeMgr.getTime()) {
             RecordUtil.setBestScore(this, TimeMgr.getTime());
         }
-        RecordUtil.setLastScore(this, TimeMgr.getTime());
+        if (lastScore != TimeMgr.getTime()) {
+        	RecordUtil.setLastScore(this, TimeMgr.getTime());
+        }
 		mTextTime.setText(TimeMgr.getTime() + "s");
 		mShareBtn.setOnClickListener(this);
 		TimeMgr.resetTime();
@@ -45,11 +48,11 @@ public class ResultActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View view)
 	{
-		// TODO Auto-generated method stub
 		switch (view.getId())
 		{
 		case R.id.shareBtn:
 			String shareTime = mTextTime.getText().toString();
+
 			showShare(shareTime,view);
 			break;
 
@@ -58,7 +61,7 @@ public class ResultActivity extends Activity implements OnClickListener {
 		}
 	}
 	
-	
+
 	private void showShare(String shareTime,View view)
 	{
 		//截取屏幕并存在sd卡
