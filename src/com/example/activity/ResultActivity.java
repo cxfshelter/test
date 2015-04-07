@@ -1,7 +1,5 @@
 ﻿package com.example.activity;
 
-import java.util.HashMap;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,9 +7,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-import cn.sharesdk.framework.Platform;
-import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
