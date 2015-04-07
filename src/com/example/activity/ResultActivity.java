@@ -1,5 +1,7 @@
 ﻿package com.example.activity;
 
+import java.util.HashMap;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
@@ -7,6 +9,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
@@ -62,7 +67,7 @@ public class ResultActivity extends Activity implements OnClickListener {
 	}
 	
 
-	private void showShare(String shareTime,View view)
+	private void showShare(String shareTime,final View view)
 	{
 		//截取屏幕并存在sd卡
 		ScreenShotUtils.getScreenShotBitmap(this, view);
@@ -70,9 +75,6 @@ public class ResultActivity extends Activity implements OnClickListener {
 		OnekeyShare oks = new OnekeyShare();
 		// 关闭sso授权
 		oks.disableSSOWhenAuthorize();
-		// 分享时Notification的图标和文字
-//		oks.setNotification(R.drawable.ic_launcher,
-//				this.getString(R.string.app_name));
 		// title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
 		oks.setTitle("你能hold住吗？");
 		// titleUrl是标题的网络链接，仅在人人网和QQ空间使用

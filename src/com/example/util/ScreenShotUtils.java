@@ -15,8 +15,9 @@ import android.widget.Button;
 public class ScreenShotUtils
 {
 
-	public static Bitmap getScreenShotBitmap(Activity activity,View v) {
-		// 需要截图的view
+	public static Bitmap getScreenShotBitmap(Activity activity, View v)
+	{
+		//截图前隐藏分享
 		v.setVisibility(View.INVISIBLE);
 		View view = activity.getWindow().getDecorView();
 		view.setDrawingCacheEnabled(true);
@@ -33,13 +34,12 @@ public class ScreenShotUtils
 				.getHeight();
 		// 生成图片
 		Bitmap bp = null;
-//		if (statusBarHeight + height <= bmp.getHeight()) {
-			bp = Bitmap.createBitmap(bmp, 0, statusBarHeight, width, height
-					- statusBarHeight);
-			String savePath = getSDCardPath()+"/Demo/ScreenImages";
-			File path = new File(savePath);
-			String filepath = savePath+"/screenshot.png";
-			File file = new File(filepath);
+		bp = Bitmap.createBitmap(bmp, 0, statusBarHeight, width, height
+				- statusBarHeight);
+		String savePath = getSDCardPath() + "/Demo/ScreenImages";
+		File path = new File(savePath);
+		String filepath = savePath + "/screenshot.png";
+		File file = new File(filepath);
 		try
 		{
 			if (!path.exists())
@@ -67,8 +67,9 @@ public class ScreenShotUtils
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-			view.destroyDrawingCache();
-//		}
+		view.destroyDrawingCache();
+		//截图完成后重新将分享按钮显示出来
+		v.setVisibility(View.VISIBLE);
 		return bp;
 
 	}
