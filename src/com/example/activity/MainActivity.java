@@ -1,4 +1,4 @@
-package com.example.activity;
+﻿package com.example.activity;
 
 import com.example.activity.ResultActivity;
 import com.example.service.MonitorService;
@@ -25,6 +25,7 @@ public class MainActivity extends Activity {
     private TextView tvLastScore;
 	private Button mStartBtn;
 	private TextView mTimeText;
+	private boolean mIsStop;
 
 	private Timer mTimer = new Timer();
 	private TimerTask mTask;
@@ -43,23 +44,41 @@ public class MainActivity extends Activity {
 	}
 	
 	private void initResorces() {
+		mIsStop = false;
+		
 		TimeMgr.setState(TimeMgr.TimeState.TIME_NONE);
 		
 		mStartBtn = (Button) findViewById(R.id.btnStart);
     	mTimeText = (TextView) findViewById(R.id.textTime);
         tvLastScore = (TextView) findViewById(R.id.tvLastScore);
         tvBestScore = (TextView) findViewById(R.id.tvBestScore);
-
+        
+        mStartBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.start_btn));
+        mStartBtn.setText(getResources().getString(R.string.main_startBtn));
         mStartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mTask != null) {
-                    return;
+                if(!mIsStop) {
+                	if (mTask != null) {
+                        return;
+                    }
+                    TimeMgr.resetTime();
+                    mTask = new MyTimerTask();
+                    mTimer.schedule(mTask, 500, 1000);
+                    TimeMgr.setState(TimeMgr.TimeState.TIME_ING);
+                    
+                    mStartBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.end_btn));
+                    mStartBtn.setText(getResources().getString(R.string.main_endBtn));
+                    
+                    mIsStop = true;
                 }
-                TimeMgr.resetTime();
-                mTask = new MyTimerTask();
-                mTimer.schedule(mTask, 500, 1000);
-                TimeMgr.setState(TimeMgr.TimeState.TIME_ING);
+                else {
+                	if(TimeMgr.getState() == TimeMgr.TimeState.TIME_ING) {
+             			jumpToResultActivity();
+             		}
+                	
+                	mIsStop = false;
+                }
             }
         });
     	
@@ -83,19 +102,18 @@ public class MainActivity extends Activity {
 	
 	private void jumpToResultActivity() {
 		shutDownTimer();
+		MonitorService.stopMonitor(MainActivity.this);
 		Intent intent = new Intent();
 		intent.setClass(MainActivity.this, ResultActivity.class);
 		startActivity(intent);
 	}
 	
-	// ---------  ����Ϊactivityִ�п�ʼ   ---------
-	
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        initResorces();
     }
     
     @Override
@@ -106,6 +124,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
     	super.onResume();
+    	initResorces();
         displayScore();
     }
     
@@ -117,8 +136,8 @@ public class MainActivity extends Activity {
     	super.onPause();
     }
 
-    // ����back���ؼ�
- 	@Override
+
+    @Override
      public void onBackPressed() {
  		if(TimeMgr.getState() == TimeMgr.TimeState.TIME_ING) {
  			jumpToResultActivity();

@@ -5,6 +5,12 @@
     android:background="@android:color/white"
     tools:context="com.example.activity.MainActivity" >
 
+    <ImageView
+        android:id="@+id/imgBg"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/list_background" />
+    
     <TextView
         android:id="@+id/tvBestScore"
         android:layout_width="wrap_content"
@@ -26,27 +32,26 @@
         android:textSize="@dimen/best_score_text"
         android:textColor="@android:color/black"/>
 
-    <Button
-        android:id="@+id/btnStart"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="85dp"
-        android:text="@string/main_startBtn"
-        android:textSize="38sp" />
-
     <TextView
         android:id="@+id/textTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btnStart"
+        android:layout_below="@+id/tvLastScore"
+        android:layout_marginTop="@dimen/main_widgetSpace"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="75dp"
         android:text="@string/main_notstartText"
-        android:textSize="58sp"
+        android:textSize="@dimen/time_text"
         android:textColor="@android:color/black"/>
 
-    
+    <Button
+        android:id="@+id/btnStart"
+        android:layout_width="@dimen/main_btn_width"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textTime"
+        android:layout_marginTop="@dimen/main_widgetSpace"
+        android:layout_centerHorizontal="true"
+        android:text="@string/main_startBtn"
+        android:textSize="@dimen/start_btn_text"
+        android:background="@drawable/start_btn" />
 
 </RelativeLayout>
