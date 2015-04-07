@@ -88,7 +88,7 @@ public class MainActivity extends Activity {
 		startActivity(intent);
 	}
 	
-	// ---------  ����Ϊactivityִ�п�ʼ   ---------
+	// ---------  下面为activity执行开始   ---------
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,7 +117,7 @@ public class MainActivity extends Activity {
     	super.onPause();
     }
 
-    // ����back���ؼ�
+    // 监听back返回键
  	@Override
      public void onBackPressed() {
  		if(TimeMgr.getState() == TimeMgr.TimeState.TIME_ING) {
