@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 import cn.sharesdk.framework.ShareSDK;
@@ -13,16 +14,22 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
 import com.example.test2.R;
 import com.example.util.RecordUtil;
 import com.example.util.ScreenShotUtils;
+import com.example.util.ShowConStrUtil;
 import com.example.util.TimeMgr;
 
 public class ResultActivity extends Activity implements OnClickListener {
 	
+	private ShowConStrUtil mTeaseUtil;
 	private TextView mTextTime;
+	private TextView mConStr;
 	private Button mShareBtn;
 	private static final String TAG="ResultActivity";
 	
 	private void initResources() {
+		mTeaseUtil = ShowConStrUtil.createEmptyWorkingUtil(this, TimeMgr.getTime());
+		
 		mTextTime = (TextView) findViewById(R.id.textFinalTime);
+		mConStr = (TextView) findViewById(R.id.textConStr);
 		mShareBtn = (Button)findViewById(R.id.shareBtn);
 
         int bestScore = RecordUtil.getBestScore(this);
@@ -33,7 +40,9 @@ public class ResultActivity extends Activity implements OnClickListener {
         if (lastScore != TimeMgr.getTime()) {
         	RecordUtil.setLastScore(this, TimeMgr.getTime());
         }
-		mTextTime.setText(TimeMgr.getTime() + "s");
+		
+        mTextTime.setText(TimeMgr.getTime() + "s");
+		mConStr.setText(mTeaseUtil.getTeaseStr());
 		mShareBtn.setOnClickListener(this);
 		TimeMgr.resetTime();
 	}
@@ -41,6 +50,7 @@ public class ResultActivity extends Activity implements OnClickListener {
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_result);
 		initResources();
 	}
