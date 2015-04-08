@@ -19,6 +19,7 @@ import java.util.TimerTask;
 
 import com.example.util.RecordUtil;
 import com.example.util.TimeMgr;
+import com.example.util.TimeMgr.TimeState;
 
 public class MainActivity extends Activity {
 
@@ -26,7 +27,7 @@ public class MainActivity extends Activity {
     private TextView tvLastScore;
 	private Button mStartBtn;
 	private TextView mTimeText;
-	private boolean mIsStop;
+	// private boolean mIsStop = false;		// 是否处于倒计时状态
 
 	private Timer mTimer = new Timer();
 	private TimerTask mTask;
@@ -45,8 +46,6 @@ public class MainActivity extends Activity {
 	}
 	
 	private void initResorces() {
-		mIsStop = false;
-		
 		TimeMgr.setState(TimeMgr.TimeState.TIME_NONE);
 		
 		mStartBtn = (Button) findViewById(R.id.btnStart);
@@ -54,31 +53,24 @@ public class MainActivity extends Activity {
         tvLastScore = (TextView) findViewById(R.id.tvLastScore);
         tvBestScore = (TextView) findViewById(R.id.tvBestScore);
         
-        mStartBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.start_btn));
-        mStartBtn.setText(getResources().getString(R.string.main_startBtn));
         mStartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!mIsStop) {
+                if(TimeMgr.getState() == TimeState.TIME_NONE) {
                 	if (mTask != null) {
                         return;
                     }
                     TimeMgr.resetTime();
                     mTask = new MyTimerTask();
                     mTimer.schedule(mTask, 500, 1000);
-                    TimeMgr.setState(TimeMgr.TimeState.TIME_ING);
+                    TimeMgr.setState(TimeState.TIME_ING);
                     
-                    mStartBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.end_btn));
-                    mStartBtn.setText(getResources().getString(R.string.main_endBtn));
-                    
-                    mIsStop = true;
+                    displayBtnType();
                 }
                 else {
                 	if(TimeMgr.getState() == TimeMgr.TimeState.TIME_ING) {
              			jumpToResultActivity();
              		}
-                	
-                	mIsStop = false;
                 }
             }
         });
@@ -90,6 +82,17 @@ public class MainActivity extends Activity {
                 .getLastScore(this)));
         tvBestScore.setText("Best: " + RecordUtil.getDisplayFormatScore(RecordUtil
                 .getBestScore(this)));
+    }
+    
+    private void displayBtnType() {
+    	if(TimeMgr.getState() == TimeState.TIME_NONE) {
+    		mStartBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.start_btn));
+            mStartBtn.setText(getResources().getString(R.string.main_startBtn));
+    	}
+    	else if(TimeMgr.getState() == TimeState.TIME_ING) {
+    		mStartBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.end_btn));
+            mStartBtn.setText(getResources().getString(R.string.main_endBtn));
+    	}
     }
 
     private void shutDownTimer() {
@@ -109,6 +112,7 @@ public class MainActivity extends Activity {
 		startActivity(intent);
 	}
 	
+	// --------------------------------------------
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +120,7 @@ public class MainActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
         
+        initResorces();
     }
     
     @Override
@@ -126,8 +131,8 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
     	super.onResume();
-    	initResorces();
         displayScore();
+        displayBtnType();
     }
     
     @Override
