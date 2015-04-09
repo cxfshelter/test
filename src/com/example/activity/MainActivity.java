@@ -1,4 +1,4 @@
-﻿package com.example.activity;
+package com.example.activity;
 
 import com.example.activity.ResultActivity;
 import com.example.service.MonitorService;
