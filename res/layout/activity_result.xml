@@ -9,6 +9,16 @@
         android:layout_height="fill_parent"
         android:background="@drawable/list_background" />
     
+    <TextView 
+        android:id="@+id/textConStr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/textFinalTime"
+        android:textSize="@dimen/result_text_conStr"
+        android:textColor="@android:color/black" />
+    
     <TextView
         android:id="@+id/textFinalTime"
         android:layout_width="wrap_content"
@@ -17,19 +27,18 @@
         android:layout_centerVertical="true"
         android:layout_marginBottom="75dp"
         android:text="0"
-        android:textSize="100sp"  />
+        android:textSize="100sp"
+        android:textColor="@android:color/black" />
 
     <Button
         android:id="@+id/shareBtn"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/main_btn_width"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="104dp"
-        android:textSize="25sp"
-        android:text="@string/shareText" />
+        android:layout_below="@+id/textFinalTime"
+        android:textSize="@dimen/btn_size"
+        android:text="@string/shareText"
+        android:background="@drawable/share_btn" />
     
 
 </RelativeLayout>
