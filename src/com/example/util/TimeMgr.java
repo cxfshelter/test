@@ -1,11 +1,11 @@
-package com.example.util;
+ï»¿package com.example.util;
 
 public class TimeMgr {
 	
 	public enum TimeState {
-		TIME_NONE,	// ·ÇÌôÕ½
-		TIME_ING,	// ÌôÕ½ÖĞ
-		// TIME_END,	// ÌôÕ½½áÊø
+		TIME_NONE,	// éæŒ‘æˆ˜
+		TIME_ING,	// æŒ‘æˆ˜ä¸­
+		// TIME_END,	// æŒ‘æˆ˜ç»“æŸ
 	};
 	
 	private static TimeState mState = TimeState.TIME_NONE;

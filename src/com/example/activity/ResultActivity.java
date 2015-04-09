@@ -1,7 +1,8 @@
-package com.example.activity;
+ï»¿package com.example.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -10,16 +11,28 @@ import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
 import com.example.test2.R;
+import com.example.util.RecordUtil;
+import com.example.util.ScreenShotUtils;
 import com.example.util.TimeMgr;
 
 public class ResultActivity extends Activity implements OnClickListener {
 	
 	private TextView mTextTime;
 	private Button mShareBtn;
+	private static final String TAG="ResultActivity";
 	
 	private void initResources() {
 		mTextTime = (TextView) findViewById(R.id.textFinalTime);
 		mShareBtn = (Button)findViewById(R.id.shareBtn);
+
+        int bestScore = RecordUtil.getBestScore(this);
+        int lastScore = RecordUtil.getLastScore(this);
+        if (bestScore < TimeMgr.getTime()) {
+            RecordUtil.setBestScore(this, TimeMgr.getTime());
+        }
+        if (lastScore != TimeMgr.getTime()) {
+        	RecordUtil.setLastScore(this, TimeMgr.getTime());
+        }
 		mTextTime.setText(TimeMgr.getTime() + "s");
 		mShareBtn.setOnClickListener(this);
 		TimeMgr.resetTime();
@@ -35,12 +48,12 @@ public class ResultActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View view)
 	{
-		// TODO Auto-generated method stub
 		switch (view.getId())
 		{
 		case R.id.shareBtn:
 			String shareTime = mTextTime.getText().toString();
-			showShare(shareTime);
+
+			showShare(shareTime,view);
 			break;
 
 		default:
@@ -48,34 +61,35 @@ public class ResultActivity extends Activity implements OnClickListener {
 		}
 	}
 	
-	
-	private void showShare(String shareTime)
+
+	private void showShare(String shareTime,final View view)
 	{
-		
+		//æˆªå–å±å¹•å¹¶å­˜åœ¨sdå¡
+		ScreenShotUtils.getScreenShotBitmap(this, view);
 		ShareSDK.initSDK(this);
 		OnekeyShare oks = new OnekeyShare();
-		// ¹Ø±ÕssoÊÚÈ¨
+		// å…³é—­ssoæŽˆæƒ
 		oks.disableSSOWhenAuthorize();
-		// ·ÖÏíÊ±NotificationµÄÍ¼±êºÍÎÄ×Ö
-//		oks.setNotification(R.drawable.ic_launcher,
-//				this.getString(R.string.app_name));
-		// title±êÌâ£¬Ó¡Ïó±Ê¼Ç¡¢ÓÊÏä¡¢ÐÅÏ¢¡¢Î¢ÐÅ¡¢ÈËÈËÍøºÍQQ¿Õ¼äÊ¹ÓÃ
-		oks.setTitle("ÄãÄÜhold×¡Âð£¿");
-		// titleUrlÊÇ±êÌâµÄÍøÂçÁ´½Ó£¬½öÔÚÈËÈËÍøºÍQQ¿Õ¼äÊ¹ÓÃ
-//		oks.setTitleUrl("http://10.163.7.91:8080/scrawl");
-		// textÊÇ·ÖÏíÎÄ±¾£¬ËùÓÐÆ½Ì¨¶¼ÐèÒªÕâ¸ö×Ö¶Î
-		oks.setText("¸çÄÜÔÚ¡¾Ô¶ÀëÊÖ»úAPP¡¿¼á³Ö"+shareTime+"£¬ÄãÄÜhold×¡Âð£¿");
-		// imagePathÊÇÍ¼Æ¬µÄ±¾µØÂ·¾¶£¬Linked-InÒÔÍâµÄÆ½Ì¨¶¼Ö§³Ö´Ë²ÎÊý
-		// url½öÔÚÎ¢ÐÅ£¨°üÀ¨ºÃÓÑºÍÅóÓÑÈ¦£©ÖÐÊ¹ÓÃ
+		// titleæ ‡é¢˜ï¼Œå°è±¡ç¬”è®°ã€é‚®ç®±ã€ä¿¡æ¯ã€å¾®ä¿¡ã€äººäººç½‘å’ŒQQç©ºé—´ä½¿ç”¨
+		oks.setTitle("ä½ èƒ½holdä½å—ï¼Ÿ");
+		// titleUrlæ˜¯æ ‡é¢˜çš„ç½‘ç»œé“¾æŽ¥ï¼Œä»…åœ¨äººäººç½‘å’ŒQQç©ºé—´ä½¿ç”¨
+		oks.setTitleUrl("https://github.com/cxfshelter/test");
+		// textæ˜¯åˆ†äº«æ–‡æœ¬ï¼Œæ‰€æœ‰å¹³å°éƒ½éœ€è¦è¿™ä¸ªå­—æ®µ
+		// imagePathæ˜¯å›¾ç‰‡çš„æœ¬åœ°è·¯å¾„ï¼ŒLinked-Inä»¥å¤–çš„å¹³å°éƒ½æ”¯æŒæ­¤å‚æ•°
+		// urlä»…åœ¨å¾®ä¿¡ï¼ˆåŒ…æ‹¬å¥½å‹å’Œæœ‹å‹åœˆï¼‰ä¸­ä½¿ç”¨
 //		oks.setUrl("http://10.163.7.91:8080/scrawl/publish/10.jpg");
-		// commentÊÇÎÒ¶ÔÕâÌõ·ÖÏíµÄÆÀÂÛ£¬½öÔÚÈËÈËÍøºÍQQ¿Õ¼äÊ¹ÓÃ
-		oks.setComment("¸çÄÜÔÚ¡¾Ô¶ÀëÊÖ»úAPP¡¿¼á³Ö"+shareTime+"£¬ÄãÄÜhold×¡Âð£¿");
-		// siteÊÇ·ÖÏí´ËÄÚÈÝµÄÍøÕ¾Ãû³Æ£¬½öÔÚQQ¿Õ¼äÊ¹ÓÃ
+		// commentæ˜¯æˆ‘å¯¹è¿™æ¡åˆ†äº«çš„è¯„è®ºï¼Œä»…åœ¨äººäººç½‘å’ŒQQç©ºé—´ä½¿ç”¨
+		oks.setComment("å“¥èƒ½åœ¨ã€è¿œç¦»æ‰‹æœºAPPã€‘åšæŒ"+shareTime+"ï¼Œä½ èƒ½holdä½å—ï¼Ÿ");
+		// siteæ˜¯åˆ†äº«æ­¤å†…å®¹çš„ç½‘ç«™åç§°ï¼Œä»…åœ¨QQç©ºé—´ä½¿ç”¨
 		oks.setSite(this.getString(R.string.app_name));
-		// siteUrlÊÇ·ÖÏí´ËÄÚÈÝµÄÍøÕ¾µØÖ·£¬½öÔÚQQ¿Õ¼äÊ¹ÓÃ
+		// siteUrlæ˜¯åˆ†äº«æ­¤å†…å®¹çš„ç½‘ç«™åœ°å€ï¼Œä»…åœ¨QQç©ºé—´ä½¿ç”¨
 //		oks.setSiteUrl("http://10.163.7.91:8080/scrawl");
-//		oks.setImagePath(imagePath);
-		// Æô¶¯·ÖÏíGUI
+		oks.setText("å“¥èƒ½åœ¨ã€è¿œç¦»æ‰‹æœºAPPã€‘åšæŒ"+shareTime+"ï¼Œä½ èƒ½holdä½å—ï¼Ÿ");
+		oks.setImagePath(ScreenShotUtils.getSDCardPath()+"/Demo/ScreenImages"+"/screenshot.png");
+//		oks.setImageUrl("http://img2.cache.netease.com/tech/2015/4/7/2015040709103419de7.jpg");
+		Log.i(TAG, ScreenShotUtils.getSDCardPath()+"/Demo/ScreenImages"+"/screenshot.png");
+		
+		// å¯åŠ¨åˆ†äº«GUI
 		oks.show(this);
 	}
 	

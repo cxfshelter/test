@@ -1,4 +1,4 @@
-package com.example.activity;
+锘縫ackage com.example.activity;
 
 import com.example.activity.ResultActivity;
 import com.example.service.MonitorService;
@@ -16,12 +16,17 @@ import android.widget.TextView;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.example.util.RecordUtil;
 import com.example.util.TimeMgr;
 
 public class MainActivity extends Activity {
-	
+
+    private TextView tvBestScore;
+    private TextView tvLastScore;
 	private Button mStartBtn;
 	private TextView mTimeText;
+	private boolean mIsStop;
+
 	private Timer mTimer = new Timer();
 	private TimerTask mTask;
 	
@@ -39,27 +44,54 @@ public class MainActivity extends Activity {
 	}
 	
 	private void initResorces() {
+		mIsStop = false;
+		
 		TimeMgr.setState(TimeMgr.TimeState.TIME_NONE);
 		
 		mStartBtn = (Button) findViewById(R.id.btnStart);
     	mTimeText = (TextView) findViewById(R.id.textTime);
-    	
-    	mStartBtn.setOnClickListener(new View.OnClickListener() {
-    		@Override
-			public void onClick(View v) {
-    			if(mTask != null) {
-    				return ;
-    			}
-    			TimeMgr.resetTime();
-    			mTask = new MyTimerTask();
-    			mTimer.schedule(mTask, 500, 1000);
-    			TimeMgr.setState(TimeMgr.TimeState.TIME_ING);
-    		}
-    	});
+        tvLastScore = (TextView) findViewById(R.id.tvLastScore);
+        tvBestScore = (TextView) findViewById(R.id.tvBestScore);
+        
+        mStartBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.start_btn));
+        mStartBtn.setText(getResources().getString(R.string.main_startBtn));
+        mStartBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!mIsStop) {
+                	if (mTask != null) {
+                        return;
+                    }
+                    TimeMgr.resetTime();
+                    mTask = new MyTimerTask();
+                    mTimer.schedule(mTask, 500, 1000);
+                    TimeMgr.setState(TimeMgr.TimeState.TIME_ING);
+                    
+                    mStartBtn.setBackgroundDrawable(getResources().getDrawable(R.drawable.end_btn));
+                    mStartBtn.setText(getResources().getString(R.string.main_endBtn));
+                    
+                    mIsStop = true;
+                }
+                else {
+                	if(TimeMgr.getState() == TimeMgr.TimeState.TIME_ING) {
+             			jumpToResultActivity();
+             		}
+                	
+                	mIsStop = false;
+                }
+            }
+        });
     	
 	}
-	
-	private void shutDownTimer() {
+
+    private void displayScore() {
+        tvLastScore.setText("Last: " + RecordUtil.getDisplayFormatScore(RecordUtil
+                .getLastScore(this)));
+        tvBestScore.setText("Best: " + RecordUtil.getDisplayFormatScore(RecordUtil
+                .getBestScore(this)));
+    }
+
+    private void shutDownTimer() {
 		TimeMgr.setState(TimeMgr.TimeState.TIME_NONE);
 		if(null != mTimer && null != mTask) {
 			mTask.cancel();
@@ -70,19 +102,18 @@ public class MainActivity extends Activity {
 	
 	private void jumpToResultActivity() {
 		shutDownTimer();
+		MonitorService.stopMonitor(MainActivity.this);
 		Intent intent = new Intent();
 		intent.setClass(MainActivity.this, ResultActivity.class);
 		startActivity(intent);
 	}
 	
-	// ---------  下面为activity执行开始   ---------
-	
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        initResorces();
     }
     
     @Override
@@ -93,6 +124,8 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
     	super.onResume();
+    	initResorces();
+        displayScore();
     }
     
     @Override
@@ -103,8 +136,8 @@ public class MainActivity extends Activity {
     	super.onPause();
     }
 
-    // 监听back返回键
- 	@Override
+
+    @Override
      public void onBackPressed() {
  		if(TimeMgr.getState() == TimeMgr.TimeState.TIME_ING) {
  			jumpToResultActivity();

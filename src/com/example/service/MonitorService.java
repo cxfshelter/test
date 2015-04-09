@@ -1,19 +1,27 @@
-package com.example.service;
-
-import com.example.util.Config;
+ï»¿package com.example.service;
 
 import android.app.ActivityManager;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
+import android.os.SystemClock;
+
+import com.example.util.Config;
 
 /**
- * ÓÃÓÚ¼ì²âµ±Ç°Ó¦ÓÃÍË³öºó£¨²¢ÇÒ»¹´¦ÓÚÕıÔÚµ¹¼ÆÊ±×´Ì¬£©£¬¼ì²âÓÃ»§ÓĞÎŞ¿ªÆôĞÂÓ¦ÓÃ
- * ÓĞÔò¹Ø±Õ¿ªÆôÓ¦ÓÃ²¢Ìø×ªµ½µ¹¼ÆÊ±½çÃæ
+ * ç”¨äºæ£€æµ‹å½“å‰åº”ç”¨é€€å‡ºåï¼ˆå¹¶ä¸”è¿˜å¤„äºæ­£åœ¨å€’è®¡æ—¶çŠ¶æ€ï¼‰ï¼Œæ£€æµ‹ç”¨æˆ·æœ‰æ— å¼€å¯æ–°åº”ç”¨
+ * æœ‰åˆ™å…³é—­å¼€å¯åº”ç”¨å¹¶è·³è½¬åˆ°å€’è®¡æ—¶ç•Œé¢
  */
 public class MonitorService extends Service{
+	
+	static boolean mFlag = false;
+	static AlarmManager mAlarm = null;
+	static PendingIntent mPend = null;
 	
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -52,8 +60,32 @@ public class MonitorService extends Service{
 	}
 	
 	public static void startMonitor(Context context) {
-		Intent intent = new Intent(context, MonitorService.class);
-		context.startService(intent);
+		if(!mFlag) {
+			if(mAlarm == null) {
+				mAlarm = (AlarmManager)context.getSystemService(ALARM_SERVICE);
+			}
+			if(mPend == null) {
+				mPend = PendingIntent.getService(context, 0, new Intent(context, MonitorService.class), 0);
+			}
+			mAlarm.setRepeating(AlarmManager.RTC_WAKEUP, SystemClock.currentThreadTimeMillis(), 1, mPend);
+			mFlag = true;
+		}
+		
+		//Intent intent = new Intent(context, MonitorService.class);
+		//context.startService(intent);
+	}
+	
+	public static void stopMonitor(Context context) {
+		if(mFlag) {
+			if(mAlarm == null) {
+				mAlarm = (AlarmManager)context.getSystemService(ALARM_SERVICE);
+			}
+			if(mPend == null) {
+				mPend = PendingIntent.getService(context, 0, new Intent(context, MonitorService.class), 0);
+			}
+			mAlarm.cancel(mPend);
+			mFlag = false;
+		}
 	}
 	
 }
