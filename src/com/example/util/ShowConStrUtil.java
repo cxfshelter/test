@@ -12,15 +12,15 @@ import android.content.Context;
 public class ShowConStrUtil {
 	
 	/** 
-	 * Ìô¶ºÓï¾äµÄ¼¸ÖÖ×´Ì¬
-	 * ÓëÀúÊ·×îºÃ³É¼¨Ïà±È£ºĞ¡ÓÚ¡¢µÈÓÚ£¨Ç°ºóÏà²îĞ¡ÓÚ5%£©¡¢´óÓÚ
-	 * ÌØÊâÇé¿ö£ºĞ¡ÓÚ1·ÖÖÓ
+	 * æŒ‘é€—è¯­å¥çš„å‡ ç§çŠ¶æ€
+	 * ä¸å†å²æœ€å¥½æˆç»©ç›¸æ¯”ï¼šå°äºã€ç­‰äºï¼ˆå‰åç›¸å·®å°äº5%ï¼‰ã€å¤§äº
+	 * ç‰¹æ®Šæƒ…å†µï¼šå°äº1åˆ†é’Ÿ
 	 */
 	public enum TeaseState {
-		LEAST_ONE_MIN,		// Ğ¡ÓÚ1·ÖÖÓ
-		LESS_THAN_BEST,		// ´óÓÚ1·ÖÖÓĞ¡ÓÚ×îºÃ³É¼¨
-		EQUAL_THAN_BEST,	// µÈÓÚ×îºÃ³É¼¨£¨Ç°ºóÏà²îĞ¡ÓÚ5%£©
-		LARGER_THAN_BEST,	// ´óÓÚ×îºÃ³É¼¨£¨Ïà²î´óÓÚ5%£©
+		LEAST_ONE_MIN,		// å°äº1åˆ†é’Ÿ
+		LESS_THAN_BEST,		// å¤§äº1åˆ†é’Ÿå°äºæœ€å¥½æˆç»©
+		EQUAL_THAN_BEST,	// ç­‰äºæœ€å¥½æˆç»©ï¼ˆå‰åç›¸å·®å°äº5%ï¼‰
+		LARGER_THAN_BEST,	// å¤§äºæœ€å¥½æˆç»©ï¼ˆç›¸å·®å¤§äº5%ï¼‰
 	};
 	
 	private Context mContext;
@@ -38,8 +38,8 @@ public class ShowConStrUtil {
 	}
 	
 	/**
-	 * 	³É¼¨³öÀ´ÈıÖÖÇé¿ö£¨ÓëÀúÊ·×îºÃ³É¼¨¶Ô±È£©£ºĞ¡ÓÚ¡¢µÈÓÚ¡¢´óÓÚ£»
-	 *  Ôİ²»¶Ô×îÖÕ³É¼¨½øĞĞÉ¸Ñ¡
+	 * 	æˆç»©å‡ºæ¥ä¸‰ç§æƒ…å†µï¼ˆä¸å†å²æœ€å¥½æˆç»©å¯¹æ¯”ï¼‰ï¼šå°äºã€ç­‰äºã€å¤§äºï¼›
+	 *  æš‚ä¸å¯¹æœ€ç»ˆæˆç»©è¿›è¡Œç­›é€‰
 	 */
 	public void setTeaseState(int time) {
 		mTeaseState = TeaseState.LEAST_ONE_MIN;
@@ -53,7 +53,7 @@ public class ShowConStrUtil {
 		String str = null;
 		if(mTeaseState == TeaseState.LEAST_ONE_MIN) {
 			String[] mLeastStrs = mContext.getResources().getStringArray(R.array.least_than_oneMin);
-			// ²úÉú0 ~ .length-1µÄËæ»úÊı
+			// äº§ç”Ÿ0 ~ .length-1çš„éšæœºæ•°
 			int randNum = (int) (Math.random() * mLeastStrs.length);
 			str = mLeastStrs[randNum];
 		}
