@@ -27,14 +27,20 @@ public class ShowConStrUtil {
 	
 	private TeaseState mTeaseState;
 	
-	public ShowConStrUtil(Context context) {
-		mContext = context;
+	private static ShowConStrUtil mInstance;
+	
+	public static synchronized void setInstance() {
+		if(mInstance == null) {
+			mInstance = new ShowConStrUtil();
+		}
 	}
 	
 	public static ShowConStrUtil createEmptyWorkingUtil(Context context, int time) {
-		ShowConStrUtil work = new ShowConStrUtil(context);
-		work.setTeaseState(time);
-		return work;
+		// ShowConStrUtil work = new ShowConStrUtil(context);
+		ShowConStrUtil.setInstance();
+		mInstance.mContext = context;
+		mInstance.setTeaseState(time);
+		return mInstance;
 	}
 	
 	/**
@@ -43,10 +49,6 @@ public class ShowConStrUtil {
 	 */
 	public void setTeaseState(int time) {
 		mTeaseState = TeaseState.LEAST_ONE_MIN;
-	}
-	
-	public TeaseState getTeaseState() {
-		return mTeaseState;
 	}
 	
 	public String getTeaseStr() {

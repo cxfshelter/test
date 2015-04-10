@@ -5,6 +5,7 @@ import com.example.service.MonitorService;
 import com.example.test2.R;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,7 +18,9 @@ import android.widget.TextView;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.example.util.Config;
 import com.example.util.RecordUtil;
+import com.example.util.TextEftUtil;
 import com.example.util.TimeMgr;
 import com.example.util.TimeMgr.TimeState;
 
@@ -28,6 +31,7 @@ public class MainActivity extends Activity {
 	private Button mStartBtn;
 	private TextView mTimeText;
 	// private boolean mIsStop = false;		// 是否处于倒计时状态
+	private TextEftUtil txtEftUtil;
 
 	private Timer mTimer = new Timer();
 	private TimerTask mTask;
@@ -47,6 +51,10 @@ public class MainActivity extends Activity {
 	
 	private void initResorces() {
 		TimeMgr.setState(TimeMgr.TimeState.TIME_NONE);
+		txtEftUtil = TextEftUtil.createTextEftUtil(
+				MainActivity.this, 
+				MainActivity.this.findViewById(R.id.mainAct), 
+				Config.MAIN_EFCTXT_NUM);
 		
 		mStartBtn = (Button) findViewById(R.id.btnStart);
     	mTimeText = (TextView) findViewById(R.id.textTime);
@@ -66,6 +74,7 @@ public class MainActivity extends Activity {
                     TimeMgr.setState(TimeState.TIME_ING);
                     
                     displayBtnType();
+                    displayTxtEft();
                 }
                 else {
                 	if(TimeMgr.getState() == TimeMgr.TimeState.TIME_ING) {
@@ -94,6 +103,10 @@ public class MainActivity extends Activity {
             mStartBtn.setText(getResources().getString(R.string.main_endBtn));
     	}
     }
+    
+    private void displayTxtEft() {
+    	txtEftUtil.startTextEft();
+    }
 
     private void shutDownTimer() {
 		TimeMgr.setState(TimeMgr.TimeState.TIME_NONE);
@@ -107,6 +120,8 @@ public class MainActivity extends Activity {
 	private void jumpToResultActivity() {
 		shutDownTimer();
 		MonitorService.stopMonitor(MainActivity.this);
+		txtEftUtil.removeTxtFromLayout();
+		
 		Intent intent = new Intent();
 		intent.setClass(MainActivity.this, ResultActivity.class);
 		startActivity(intent);
