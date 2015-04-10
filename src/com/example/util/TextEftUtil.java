@@ -2,7 +2,6 @@ package com.example.util;
 
 import java.util.ArrayList;
 
-import com.example.activity.MainActivity;
 import com.example.test2.R;
 import com.example.util.TimeMgr.TimeState;
 
@@ -97,9 +96,15 @@ public class TextEftUtil {
 	}
 	
 	public int[] getPos() {
+		if(mView == null && mView instanceof View) {
+			return new int[] {};
+		}
+		
 		int[] pos;
-		int x = (int) (Math.random() * 300);
-		int y = (int) (Math.random() * 300);
+		int screenWidth = mView.getWidth();
+		int screenHeight = mView.getHeight();
+		int x = screenWidth/5 + (int) (Math.random() * screenWidth/3);
+		int y = screenHeight/5 + (int) (Math.random() * screenHeight/3);
 		pos = new int[] {x, y};
 		return pos;
 	}
