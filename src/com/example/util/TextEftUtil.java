@@ -96,7 +96,7 @@ public class TextEftUtil {
 	}
 	
 	public int[] getPos() {
-		if(mView == null && mView instanceof View) {
+		if(mView == null || !(mView instanceof View)) {
 			return new int[] {};
 		}
 		
