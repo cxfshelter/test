@@ -62,7 +62,11 @@ public class TextEftUtil {
 	public TextEftUtil() {
 		mViews = new ArrayList<TextView>();
 		mAnimIDs = new int[] {
-				R.anim.alpha_scale
+				R.anim.alpha_scale,
+				R.anim.alpha_scale2,
+				R.anim.alpha_scale3,
+				R.anim.alpha_scale4,
+				R.anim.alpha_scale5
 		};
 	}
 	
@@ -133,7 +137,7 @@ public class TextEftUtil {
 	}
 	
 	private void loadAnimation(TextView txtView) {
-		int range = 0;
+		int range = (int) (Math.random() * mAnimIDs.length);
 		int animID = mAnimIDs[range];
 		mAnimation = AnimationUtils.loadAnimation(mContext, animID);
 		mAnimation.setAnimationListener(mAsListener);
