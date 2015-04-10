@@ -1,4 +1,4 @@
-﻿package com.example.service;
+package com.example.service;
 
 import android.app.ActivityManager;
 import android.app.AlarmManager;
