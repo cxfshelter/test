@@ -7,7 +7,7 @@ android:shareInterpolator="false"
         android:interpolator="@android:res/anim/accelerate_decelerate_interpolator"
         android:fromAlpha="0.0"
         android:toAlpha="1.0"
-        android:duration="600"
+        android:duration="1000"
         android:repeatCount="0"
 
     >

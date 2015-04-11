@@ -51,14 +51,18 @@ public class ShowConStrUtil {
 		mTeaseState = TeaseState.LEAST_ONE_MIN;
 	}
 	
+	/**
+	 * 后期会根据mTeaseState来选择显示的语句
+	 * 暂统一
+	 */
 	public String getTeaseStr() {
-		String str = null;
-		if(mTeaseState == TeaseState.LEAST_ONE_MIN) {
-			String[] mLeastStrs = mContext.getResources().getStringArray(R.array.least_than_oneMin);
-			// 产生0 ~ .length-1的随机数
-			int randNum = (int) (Math.random() * mLeastStrs.length);
-			str = mLeastStrs[randNum];
-		}
+//		if(mTeaseState == TeaseState.LEAST_ONE_MIN) {
+//			String[] mLeastStrs = mContext.getResources().getStringArray(R.array.least_than_oneMin);
+//			// 产生0 ~ .length-1的随机数
+//			int randNum = (int) (Math.random() * mLeastStrs.length);
+//			str = mLeastStrs[randNum];
+//		}
+		String str = StrUtil.getCorStr(mContext, R.array.least_than_oneMin);
 		return str;
 	}
 	

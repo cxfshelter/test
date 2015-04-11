@@ -6,6 +6,7 @@ import com.example.test2.R;
 import com.example.util.TimeMgr.TimeState;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.view.animation.Animation;
@@ -19,12 +20,27 @@ public class TextEftUtil {
 	private static Context mContext;
 	private static View mView;
 	private static TextEftUtil mInstance;
-	
-	private ArrayList<TextView> mViews;
-	// pos：x，y取范围值即可（暂取均小于360dp）
 	// anim：在res/anim里设置即可
-	private int[] mAnimIDs;
-	private Animation mAnimation;
+	private static final int[] mAnimIDs;
+	private static final int[] mTxtColors;
+	private ArrayList<TextView> mViews;
+	
+	static {
+		mAnimIDs = new int[] {
+			R.anim.alpha_scale,
+			R.anim.alpha_scale2,
+			R.anim.alpha_scale3,
+			R.anim.alpha_scale4,
+			R.anim.alpha_scale5
+		};
+		mTxtColors = new int[] {
+			Color.BLACK,
+			Color.GREEN,
+			Color.RED,
+			Color.WHITE,
+			Color.YELLOW
+		};
+	}
 	
 	// 每个 view 动画的监听事件
 	AnimationListener mAsListener = new AnimationListener() {
@@ -60,13 +76,6 @@ public class TextEftUtil {
 	
 	public TextEftUtil() {
 		mViews = new ArrayList<TextView>();
-		mAnimIDs = new int[] {
-				R.anim.alpha_scale,
-				R.anim.alpha_scale2,
-				R.anim.alpha_scale3,
-				R.anim.alpha_scale4,
-				R.anim.alpha_scale5
-		};
 	}
 	
 	public static synchronized void setInstance(Context context, View view) {
@@ -88,9 +97,7 @@ public class TextEftUtil {
 	}
 	
 	public void startTextEft() {
-		int i = 0;
 		for(TextView txtView : mInstance.mViews) {
-			txtView.setText("就试试显示位置" + i++);
 			mInstance.addTxtViewToLayout(mView, txtView);
 		}
 	}
@@ -100,13 +107,12 @@ public class TextEftUtil {
 			return new int[] {};
 		}
 		
-		int[] pos;
-		int screenWidth = mView.getWidth();
-		int screenHeight = mView.getHeight();
-		int x = screenWidth/5 + (int) (Math.random() * screenWidth/3);
-		int y = screenHeight/5 + (int) (Math.random() * screenHeight/3);
-		pos = new int[] {x, y};
-		return pos;
+		int viewWidth = mView.getWidth();
+		int viewHeight = mView.getHeight();
+		int x = 0 + (int) (Math.random() * viewWidth/3);
+		int y = viewHeight/5 + (int) (Math.random() * viewHeight/3);
+		
+		return new int[] {x, y};
 	}
 	
 	/*
@@ -121,7 +127,7 @@ public class TextEftUtil {
 		
 		RelativeLayout relView = (RelativeLayout) view;
 		MarginLayoutParams margin = new MarginLayoutParams(relView.getLayoutParams());
-		margin.setMargins(posX, posY, posX+margin.width, posY+margin.height);
+		margin.setMargins(posX, posY, 0, 0);
 		RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(margin);
 		if(txtView.getParent() != null) {
 			txtView.setLayoutParams(layoutParams);
@@ -132,6 +138,8 @@ public class TextEftUtil {
 		}
 		
 		mInstance.loadAnimation(txtView);
+		txtView.setText(StrUtil.getCorStr(mContext, R.array.remind_str));
+		txtView.setTextSize(25);
 	}
 	
 	public void removeTxtFromLayout() {
@@ -144,9 +152,10 @@ public class TextEftUtil {
 	private void loadAnimation(TextView txtView) {
 		int range = (int) (Math.random() * mAnimIDs.length);
 		int animID = mAnimIDs[range];
-		mAnimation = AnimationUtils.loadAnimation(mContext, animID);
-		mAnimation.setAnimationListener(mAsListener);
-		txtView.startAnimation(mAnimation);
+		Animation animation = AnimationUtils.loadAnimation(mContext, animID);
+		animation.setAnimationListener(mAsListener);
+		txtView.startAnimation(animation);
+		txtView.setTextColor(mTxtColors[range]);
 	}
 	
 }

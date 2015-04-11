@@ -5,7 +5,6 @@ import com.example.service.MonitorService;
 import com.example.test2.R;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
