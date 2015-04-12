@@ -124,10 +124,18 @@ public class TextEftUtil {
 		int[] pos = getPos();
 		int posX = pos[0];
 		int posY = pos[1];
+		// 2/5的概率
+		boolean isHor = (int)(Math.random() * 6) > 3;
 		
 		RelativeLayout relView = (RelativeLayout) view;
 		MarginLayoutParams margin = new MarginLayoutParams(relView.getLayoutParams());
-		margin.setMargins(posX, posY, 0, 0);
+		if(!isHor) {
+			margin.setMargins(posX, posY, 0, 0);
+		}
+		else {
+			margin.setMargins(posX, posY, mView.getWidth()-posX-50, 0);
+		}
+		
 		RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(margin);
 		if(txtView.getParent() != null) {
 			txtView.setLayoutParams(layoutParams);
