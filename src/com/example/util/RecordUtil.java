@@ -71,6 +71,38 @@ public class RecordUtil {
     public static String getDisplayFormatScore(int score) {
         return score / 60 / 60 + "小时" + score / 60 % 60 + "分钟" + score % 60 + "秒";
     }
+    
+    /**
+     * 把“秒”为单位的成绩转换为显示格式“**:**:**:”成绩
+     * @param score 以“秒”为单位的成绩
+     * @return 显示格式的成绩
+     */
+    public static String getDisplayFormatScoreByS(int score) {
+    	if(score <= 0) {
+    		return "00:00:00";
+    	}
+    	
+    	final int ONE_HOURS_SEC = 3600;
+    	final int ONE_MIN_SEC = 60;
+    	
+    	StringBuilder hoursStr = new StringBuilder(String.valueOf(score / ONE_HOURS_SEC));
+    	StringBuilder minsStr = new StringBuilder(String.valueOf(score / ONE_MIN_SEC));
+    	StringBuilder secsStr = new StringBuilder(String.valueOf(score % ONE_MIN_SEC));
+    	
+    	if(hoursStr.length() <= 1) {
+    		hoursStr = hoursStr.insert(0, 0);
+    	}
+    	
+    	if(minsStr.length() <= 1) {
+    		minsStr = minsStr.insert(0, 0);
+    	}
+    	
+    	if(secsStr.length() <= 1) {
+    		secsStr = secsStr.insert(0, 0);
+    	}
+    	
+        return hoursStr + ":" + minsStr + ":" + secsStr;
+    }
 
     /**
      * 根据不同的KEY获取相应成绩

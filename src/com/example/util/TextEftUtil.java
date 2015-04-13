@@ -34,11 +34,11 @@ public class TextEftUtil {
 			R.anim.alpha_scale5
 		};
 		mTxtColors = new int[] {
-			Color.BLACK,
-			Color.GREEN,
+			Color.GRAY,
+			Color.BLUE,
 			Color.RED,
 			Color.WHITE,
-			Color.YELLOW
+			Color.CYAN
 		};
 	}
 	
@@ -102,14 +102,21 @@ public class TextEftUtil {
 		}
 	}
 	
-	public int[] getPos() {
+	public int[] getPos(boolean isHor) {
 		if(mView == null || !(mView instanceof View)) {
 			return new int[] {};
 		}
 		
 		int viewWidth = mView.getWidth();
 		int viewHeight = mView.getHeight();
-		int x = 0 + (int) (Math.random() * viewWidth/3);
+		int endPosX = 0;
+		if(isHor) {
+			endPosX = viewWidth/3;
+		}
+		else {
+			endPosX = viewWidth-50;
+		}
+		int x = 0 + (int) (Math.random() * endPosX);
 		int y = viewHeight/5 + (int) (Math.random() * viewHeight/3);
 		
 		return new int[] {x, y};
@@ -121,11 +128,11 @@ public class TextEftUtil {
 	 *  绝对位置
 	 */
 	public void addTxtViewToLayout(View view, TextView txtView) {
-		int[] pos = getPos();
+		// 2/5的概率，是水平还是竖直
+		boolean isHor = (int)(Math.random() * 6) > 3;
+		int[] pos = getPos(isHor);
 		int posX = pos[0];
 		int posY = pos[1];
-		// 2/5的概率
-		boolean isHor = (int)(Math.random() * 6) > 3;
 		
 		RelativeLayout relView = (RelativeLayout) view;
 		MarginLayoutParams margin = new MarginLayoutParams(relView.getLayoutParams());
@@ -133,6 +140,7 @@ public class TextEftUtil {
 			margin.setMargins(posX, posY, 0, 0);
 		}
 		else {
+			// 50 应该改为run中获取1个字符的长度，改
 			margin.setMargins(posX, posY, mView.getWidth()-posX-50, 0);
 		}
 		

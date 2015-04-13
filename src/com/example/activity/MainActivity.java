@@ -42,7 +42,8 @@ public class MainActivity extends Activity {
 				@Override
 				public void run() {
 					TimeMgr.setTime();
-					mTimeText.setText(TimeMgr.getTime() + "s");
+					// mTimeText.setText(TimeMgr.getTime() + "s");
+					mTimeText.setText(RecordUtil.getDisplayFormatScoreByS(TimeMgr.getTime()));
 				}
 			});
 		}
