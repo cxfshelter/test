@@ -7,7 +7,7 @@
     <dimen name="best_score_text">16sp</dimen>
     <dimen name="last_score_text">16sp</dimen>
     
-    <dimen name="result_text_conStr">28sp</dimen>
+    <dimen name="result_text_conStr">30sp</dimen>
     
     <dimen name="time_text">58sp</dimen>
     <dimen name="btn_size">38sp</dimen>
