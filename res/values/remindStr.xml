@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string-array name="remind_str">
+    	<!-- 励志 -->
+    	<item>永远不说不可能</item>
+    	<item>每天自我反省</item>
+    	<item>清楚一点：手机不能帮你实现梦想</item>
+    	
+    	<!-- 反面 -->
+    	<item>滚去写作业</item>
+    	<item>滚去看书</item>
+    	<item>滚去工作</item>
+    	<item>翻滚吧，逗比</item>
+    	<item>拜托照照镜子</item>
+    	<item>四六级过了吗</item>
+    	
+    	<!-- 挑逗点停止 -->
+    	<item>想玩就点吧，看你那怂样</item>
+    	<item>坚持不住了吧，那就点了吧</item>
+    	<item>微信没人发信息给你，放心</item>
+    	
+    	<!-- 其他 -->
+    	<item>当初说好的承诺呢，还记得吗</item>
+    	<item>3年前你说3年后要怎么来着</item>
+    	<item>你怎么能让你家人和你现在一样</item>
+    	
+    </string-array>
+    
+</resources>
