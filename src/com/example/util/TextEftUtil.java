@@ -34,7 +34,7 @@ public class TextEftUtil {
 			R.anim.alpha_scale3,
 			R.anim.alpha_scale4,
 			R.anim.alpha_scale5,
-            R.anim.translate
+            R.anim.shake
 		};
 		mTxtColors = new int[] {
 			Color.BLACK,
@@ -162,18 +162,13 @@ public class TextEftUtil {
 	}
 	
 	private void loadAnimation(TextView txtView) {
-		int range = (int) (Math.random() * mTxtColors.length);
-//		int animID = mAnimIDs[range];
-		Animation animation = AnimationUtils.loadAnimation(mContext, mAnimIDs[0]);
-        ShakeScaleAnimation shakeScaleAnimation = new ShakeScaleAnimation();
-        AnimationSet animationSet = new AnimationSet(false);
-        animationSet.addAnimation(animation);
-        animationSet.addAnimation(shakeScaleAnimation);
-        animationSet.setAnimationListener(mAsListener);
-//        txtView.clearAnimation();
-        txtView.setAnimation(animationSet);
-		txtView.setTextColor(mTxtColors[range]);
-        animationSet.startNow();
+		int range = (int) (Math.random() * mAnimIDs.length);
+        int colorRange = (int) (Math.random() * mTxtColors.length);
+		int animID = mAnimIDs[range];
+		Animation animation = new ShakeScaleAnimation();
+        animation.setAnimationListener(mAsListener);
+        txtView.startAnimation(animation);
+		txtView.setTextColor(mTxtColors[colorRange]);
 	}
 	
 }

@@ -20,19 +20,19 @@ public class ShakeScaleAnimation extends Animation {
     public void initialize(int width, int height, int parentWidth, int parentHeight) {
         super.initialize(width, height, parentWidth, parentHeight);
 
-        setDuration(500);
+        setDuration(2000);
         setRepeatCount(1);
-        setInterpolator(new CycleInterpolator(2));
+        setInterpolator(new CycleInterpolator(3));
     }
 
     @Override
     protected void applyTransformation(float interpolatedTime, Transformation t) {
         super.applyTransformation(interpolatedTime, t);
         Matrix matrix = t.getMatrix();
-        if (interpolatedTime <= 0.5) {
-            matrix.preTranslate(-interpolatedTime * 30, 0);
-        } else {
-            matrix.preTranslate(interpolatedTime * 60, 0);
+        if (interpolatedTime <= 0.25f) {
+            matrix.preTranslate(-interpolatedTime * 20, 0);
+        } else if (interpolatedTime > 0.25f && interpolatedTime <= 0.5f){
+            matrix.preTranslate(interpolatedTime * 40, 0);
             matrix.postTranslate(-30, 0);
         }
     }
