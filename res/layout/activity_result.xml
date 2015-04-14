@@ -25,9 +25,8 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_marginBottom="75dp"
-        android:text="0"
-        android:textSize="100sp"
+        android:layout_marginBottom="@dimen/result_time_marginbottom"
+        android:textSize="@dimen/result_time_text"
         android:textColor="@android:color/black" />
 
     <Button

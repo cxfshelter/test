@@ -41,7 +41,8 @@ public class ResultActivity extends Activity implements OnClickListener {
         	RecordUtil.setLastScore(this, TimeMgr.getTime());
         }
 		
-        mTextTime.setText(TimeMgr.getTime() + "s");
+        // mTextTime.setText(TimeMgr.getTime() + "s");
+        mTextTime.setText(RecordUtil.getDisplayFormatScore(TimeMgr.getTime()));
 		mConStr.setText(mTeaseUtil.getTeaseStr());
 		mShareBtn.setOnClickListener(this);
 		TimeMgr.resetTime();
