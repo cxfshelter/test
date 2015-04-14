@@ -1,6 +1,7 @@
 package com.example.util;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.example.test2.R;
 import com.example.util.TimeMgr.TimeState;
@@ -22,7 +23,8 @@ public class TextEftUtil {
 	private static View mView;
 	private static TextEftUtil mInstance;
 	// anim：在res/anim里设置即可
-	private static final int[] mAnimIDs;
+	private static List<Animation> mAnims;
+    private static final int[] mAnimIDs;
 	private static final int[] mTxtColors;
 	private ArrayList<TextView> mViews;
 
@@ -87,9 +89,20 @@ public class TextEftUtil {
 		}
 		mContext = context;
 		mView = view;
-	}
-	
-	public static TextEftUtil createTextEftUtil(Context context, View view, int num) {
+        mAnims = new ArrayList<Animation>();
+        initAnims();
+    }
+
+    private static void initAnims() {
+        ShakeScaleAnimation shakeScaleAnimation = new ShakeScaleAnimation();
+        mAnims.add(shakeScaleAnimation);
+        for (int id : mAnimIDs) {
+            Animation animation = AnimationUtils.loadAnimation(mContext, id);
+            mAnims.add(animation);
+        }
+    }
+
+    public static TextEftUtil createTextEftUtil(Context context, View view, int num) {
 		TextEftUtil.setInstance(context, view);
 		TextView txtView; 
 		for(int i=0; i<num; i++) {
@@ -169,10 +182,9 @@ public class TextEftUtil {
 	}
 	
 	private void loadAnimation(TextView txtView) {
-		int range = (int) (Math.random() * mAnimIDs.length);
+		int range = (int) (Math.random() * mAnims.size());
         int colorRange = (int) (Math.random() * mTxtColors.length);
-		int animID = mAnimIDs[range];
-		Animation animation = new ShakeScaleAnimation();
+        Animation animation = mAnims.get(range);
         animation.setAnimationListener(mAsListener);
         txtView.startAnimation(animation);
 		txtView.setTextColor(mTxtColors[colorRange]);
