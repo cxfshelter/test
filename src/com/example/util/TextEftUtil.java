@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ public class TextEftUtil {
 	private static final int[] mAnimIDs;
 	private static final int[] mTxtColors;
 	private ArrayList<TextView> mViews;
+
 	
 	static {
 		mAnimIDs = new int[] {
@@ -31,7 +33,8 @@ public class TextEftUtil {
 			R.anim.alpha_scale2,
 			R.anim.alpha_scale3,
 			R.anim.alpha_scale4,
-			R.anim.alpha_scale5
+			R.anim.alpha_scale5,
+            R.anim.shake
 		};
 		mTxtColors = new int[] {
 			Color.GRAY,
@@ -167,11 +170,12 @@ public class TextEftUtil {
 	
 	private void loadAnimation(TextView txtView) {
 		int range = (int) (Math.random() * mAnimIDs.length);
+        int colorRange = (int) (Math.random() * mTxtColors.length);
 		int animID = mAnimIDs[range];
-		Animation animation = AnimationUtils.loadAnimation(mContext, animID);
-		animation.setAnimationListener(mAsListener);
-		txtView.startAnimation(animation);
-		txtView.setTextColor(mTxtColors[range]);
+		Animation animation = new ShakeScaleAnimation();
+        animation.setAnimationListener(mAsListener);
+        txtView.startAnimation(animation);
+		txtView.setTextColor(mTxtColors[colorRange]);
 	}
 	
 }
