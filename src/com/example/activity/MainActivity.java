@@ -5,6 +5,8 @@ import com.example.service.MonitorService;
 import com.example.test2.R;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,10 +15,12 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.example.util.BackUpUtils;
 import com.example.util.Config;
 import com.example.util.RecordUtil;
 import com.example.util.TextEftUtil;
@@ -42,6 +46,11 @@ public class MainActivity extends Activity {
 				@Override
 				public void run() {
 					TimeMgr.setTime();
+					if(TimeMgr.checkTime(
+							BackUpUtils.getInstance(MainActivity.this).getSelectInt(TimeMgr.getSelState().ordinal()))) {
+						displaySuc();
+					}
+					
 					// mTimeText.setText(TimeMgr.getTime() + "s");
 					mTimeText.setText(RecordUtil.getDisplayFormatScoreByS(TimeMgr.getTime()));
 				}
@@ -64,23 +73,14 @@ public class MainActivity extends Activity {
         mStartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(TimeMgr.getState() == TimeState.TIME_NONE) {
-                	if (mTask != null) {
-                        return;
-                    }
-                    TimeMgr.resetTime();
-                    mTask = new MyTimerTask();
-                    mTimer.schedule(mTask, 500, 1000);
-                    TimeMgr.setState(TimeState.TIME_ING);
-                    
-                    displayBtnType();
-                    displayTxtEft();
-                }
-                else {
-                	if(TimeMgr.getState() == TimeMgr.TimeState.TIME_ING) {
+            	if(TimeMgr.getState() == TimeState.TIME_NONE) {
+            		displaySelList();
+            	}
+            	else {
+            		if(TimeMgr.getState() == TimeMgr.TimeState.TIME_ING) {
              			jumpToResultActivity();
              		}
-                }
+            	}
             }
         });
     	
@@ -107,7 +107,54 @@ public class MainActivity extends Activity {
     private void displayTxtEft() {
     	txtEftUtil.startTextEft();
     }
-
+    
+    /*
+     * 开始倒计时后，弹出选择框，并在点选任一选项后开始倒计时
+     */
+    private void displaySelList() {
+    	new AlertDialog.Builder(MainActivity.this)
+    	.setTitle(getResources().getString(R.string.select_list_title))
+    	.setItems(getResources().getStringArray(R.array.select_list_array), 
+    			new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						Toast.makeText(MainActivity.this, getResources()
+								.getString(R.string.select_list_toast) + getResources().getStringArray(R.array.select_list_array)[which], Toast.LENGTH_LONG).show();
+						
+						TimeMgr.setSelState(which);
+						
+						startTimer();
+					}
+				}).show();
+    }
+    
+    /*
+     * 挑战成功后展示toast
+     * 后期将改变背景颜色（成功界面）
+     */
+    private void displaySuc() {
+    	Toast.makeText(MainActivity.this, "挑战成功", Toast.LENGTH_LONG).show();
+    }
+    
+    /*
+     * 开始倒计时
+     */
+    private void startTimer() {
+    	if (mTask != null) {
+            return;
+    	}
+		TimeMgr.resetTime();
+		mTask = new MyTimerTask();
+		mTimer.schedule(mTask, 500, 1000);
+		TimeMgr.setState(TimeState.TIME_ING);
+	         
+		displayBtnType();
+		displayTxtEft();
+    }
+    
+    /*
+     * 结束倒计时
+     */
     private void shutDownTimer() {
 		TimeMgr.setState(TimeMgr.TimeState.TIME_NONE);
 		if(null != mTimer && null != mTask) {
@@ -117,6 +164,9 @@ public class MainActivity extends Activity {
 		}
 	}
 	
+    /*
+     * 结束时跳转界面
+     */
 	private void jumpToResultActivity() {
 		shutDownTimer();
 		MonitorService.stopMonitor(MainActivity.this);

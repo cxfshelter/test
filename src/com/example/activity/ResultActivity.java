@@ -48,12 +48,22 @@ public class ResultActivity extends Activity implements OnClickListener {
 		TimeMgr.resetTime();
 	}
 	
+	private void resetConfig() {
+		TimeMgr.setIsSuccess(false);
+	}
+	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_result);
 		initResources();
+	}
+	
+	@Override
+	protected void onPause() {
+		resetConfig();
+		super.onPause();
 	}
 
 	@Override

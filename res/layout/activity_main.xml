@@ -50,7 +50,7 @@
         android:layout_marginTop="@dimen/main_widgetSpace"
         android:layout_centerHorizontal="true"
         android:text="@string/main_startBtn"
-        android:textSize="@dimen/btn_size"
+        android:textSize="@dimen/all_btn_size"
         android:background="@drawable/start_btn" />
 
 </RelativeLayout>

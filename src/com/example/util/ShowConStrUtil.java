@@ -62,7 +62,7 @@ public class ShowConStrUtil {
 //			int randNum = (int) (Math.random() * mLeastStrs.length);
 //			str = mLeastStrs[randNum];
 //		}
-		String str = StrUtil.getCorStr(mContext, R.array.least_than_oneMin);
+		String str = BackUpUtils.getInstance(mContext).getCorStr(R.array.least_than_oneMin);
 		return str;
 	}
 	
