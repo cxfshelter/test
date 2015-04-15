@@ -154,7 +154,7 @@ public class TextEftUtil {
 		}
 		
 		mInstance.loadAnimation(txtView);
-		txtView.setText(StrUtil.getCorStr(mContext, R.array.remind_str));
+		txtView.setText(BackUpUtils.getInstance(mContext).getCorStr(R.array.remind_str));
 		txtView.setTextSize(25);
 	}
 	
