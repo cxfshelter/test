@@ -21,7 +21,7 @@ public class ShakeScaleAnimation extends Animation {
     public void initialize(int width, int height, int parentWidth, int parentHeight) {
         super.initialize(width, height, parentWidth, parentHeight);
 
-        setDuration(1000);
+        setDuration(500);
 //        setRepeatCount(1);
         setInterpolator(new CycleInterpolator(3));
     }
@@ -36,6 +36,5 @@ public class ShakeScaleAnimation extends Animation {
             matrix.preTranslate(-interpolatedTime * 40, 0);
             matrix.postTranslate(-10, 0);
         }
-        Log.v("ShakeAnimation", "Time is : -------------" + interpolatedTime);
     }
 }
