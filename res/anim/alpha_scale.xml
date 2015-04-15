@@ -11,5 +11,5 @@ android:shareInterpolator="false"
         android:repeatCount="0"
     >
     </alpha>
-    
+
 </set>
