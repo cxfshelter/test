@@ -21,7 +21,7 @@ public class ShakeScaleAnimation extends Animation {
     public void initialize(int width, int height, int parentWidth, int parentHeight) {
         super.initialize(width, height, parentWidth, parentHeight);
 
-        setDuration(500);
+//		  setDuration(500);
 //        setRepeatCount(1);
         setInterpolator(new CycleInterpolator(3));
     }

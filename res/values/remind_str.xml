@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string-array name="remind_str">
+    	<!-- 励志 -->
+    	<item>永远不说不可能</item>
+    	<item>每天自我反省</item>
+    	<item>浪费时间是慢性自杀</item>
+    	
+    	<!-- 反面 -->
+    	<item>去写作业</item>
+    	<item>去看书</item>
+    	<item>去工作</item>
+    	<item>翻滚吧，逗比</item>
+    	<item>四六级过了吗</item>
+    	
+    	<!-- 挑逗点停止 -->
+    	<item>微信没人发信息给你，放心</item>
+    	
+    	<!-- 其他 -->
+    	<item>当初说好的承诺呢，还记得吗</item>
+    	<item>3年前你是怎么设想今天的</item>
+    	
+    </string-array>
+    
+</resources>

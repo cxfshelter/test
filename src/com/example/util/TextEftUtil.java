@@ -81,6 +81,7 @@ public class TextEftUtil {
 	
 	public TextEftUtil() {
 		mViews = new ArrayList<TextView>();
+		mAnims = new ArrayList<Animation>();
 	}
 	
 	public static synchronized void setInstance(Context context, View view) {
@@ -89,7 +90,6 @@ public class TextEftUtil {
 		}
 		mContext = context;
 		mView = view;
-        mAnims = new ArrayList<Animation>();
         initAnims();
     }
 
