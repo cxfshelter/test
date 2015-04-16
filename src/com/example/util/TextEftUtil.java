@@ -22,6 +22,7 @@ public class TextEftUtil {
 	private static View mView;
 	private static TextEftUtil mInstance;
 	// anim：在res/anim里设置即可
+    private static List<Animation> mAnims;
     private static final int[] mAnimIDs;
 	private static final int[] mTxtColors;
 	static {
@@ -31,7 +32,6 @@ public class TextEftUtil {
 			R.anim.alpha_scale3,
 			R.anim.alpha_scale4,
 			R.anim.alpha_scale5,
-            R.anim.shake
 		};
 		mTxtColors = new int[] {
 			Color.GRAY,
@@ -86,6 +86,15 @@ public class TextEftUtil {
 		}
 		mContext = context;
 		mView = view;
+        mAnims = new ArrayList<Animation>();
+        initAnims();
+    }
+
+    private static void initAnims() {
+        for (int animId : mAnimIDs) {
+            mAnims.add(AnimationUtils.loadAnimation(mContext, animId));
+        }
+        mAnims.add(new ShakeScaleAnimation());
     }
 
     public static TextEftUtil createTextEftUtil(Context context, View view, int num) {
@@ -168,11 +177,11 @@ public class TextEftUtil {
 	}
 	
 	private void loadAnimation(TextView txtView) {
-		int range = (int) (Math.random() * mAnimIDs.length);
-        int animID = mAnimIDs[range];
-		int colorRange = (int) (Math.random() * mTxtColors.length);
-        Animation animation = AnimationUtils.loadAnimation(mContext, animID);
+		int range = (int) (Math.random() * mAnims.size());
+        int colorRange = (int) (Math.random() * mTxtColors.length);
+        Animation animation = mAnims.get(range);
         animation.setAnimationListener(mAsListener);
+        txtView.clearAnimation();
         txtView.startAnimation(animation);
 		txtView.setTextColor(mTxtColors[colorRange]);
 	}
