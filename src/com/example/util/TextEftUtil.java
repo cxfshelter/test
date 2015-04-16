@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
-import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -23,12 +22,8 @@ public class TextEftUtil {
 	private static View mView;
 	private static TextEftUtil mInstance;
 	// anim：在res/anim里设置即可
-	private static List<Animation> mAnims;
     private static final int[] mAnimIDs;
 	private static final int[] mTxtColors;
-	private ArrayList<TextView> mViews;
-
-	
 	static {
 		mAnimIDs = new int[] {
 			R.anim.alpha_scale,
@@ -46,6 +41,8 @@ public class TextEftUtil {
 			Color.CYAN
 		};
 	}
+	
+	private List<TextView> mViews;
 	
 	// 每个 view 动画的监听事件
 	AnimationListener mAsListener = new AnimationListener() {
@@ -81,7 +78,6 @@ public class TextEftUtil {
 	
 	public TextEftUtil() {
 		mViews = new ArrayList<TextView>();
-		mAnims = new ArrayList<Animation>();
 	}
 	
 	public static synchronized void setInstance(Context context, View view) {
@@ -90,16 +86,6 @@ public class TextEftUtil {
 		}
 		mContext = context;
 		mView = view;
-        initAnims();
-    }
-
-    private static void initAnims() {
-        ShakeScaleAnimation shakeScaleAnimation = new ShakeScaleAnimation();
-        mAnims.add(shakeScaleAnimation);
-        for (int id : mAnimIDs) {
-            Animation animation = AnimationUtils.loadAnimation(mContext, id);
-            mAnims.add(animation);
-        }
     }
 
     public static TextEftUtil createTextEftUtil(Context context, View view, int num) {
@@ -182,9 +168,10 @@ public class TextEftUtil {
 	}
 	
 	private void loadAnimation(TextView txtView) {
-		int range = (int) (Math.random() * mAnims.size());
-        int colorRange = (int) (Math.random() * mTxtColors.length);
-        Animation animation = mAnims.get(range);
+		int range = (int) (Math.random() * mAnimIDs.length);
+        int animID = mAnimIDs[range];
+		int colorRange = (int) (Math.random() * mTxtColors.length);
+        Animation animation = AnimationUtils.loadAnimation(mContext, animID);
         animation.setAnimationListener(mAsListener);
         txtView.startAnimation(animation);
 		txtView.setTextColor(mTxtColors[colorRange]);

@@ -46,6 +46,8 @@ public class MainActivity extends Activity {
 				@Override
 				public void run() {
 					TimeMgr.setTime();
+					
+					// 挑战成功
 					if(TimeMgr.checkTime(
 							BackUpUtils.getInstance(MainActivity.this).getSelectInt(TimeMgr.getSelState().ordinal()))) {
 						displaySuc();
