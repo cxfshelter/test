@@ -8,12 +8,14 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,7 +52,7 @@ public class MainActivity extends Activity {
 					// 挑战成功
 					if(TimeMgr.checkTime(
 							BackUpUtils.getInstance(MainActivity.this).getSelectInt(TimeMgr.getSelState().ordinal()))) {
-						displaySuc();
+						displaySuc(true);
 					}
 					
 					// mTimeText.setText(TimeMgr.getTime() + "s");
@@ -134,8 +136,14 @@ public class MainActivity extends Activity {
      * 挑战成功后展示toast
      * 后期将改变背景颜色（成功界面）
      */
-    private void displaySuc() {
-    	Toast.makeText(MainActivity.this, "挑战成功", Toast.LENGTH_LONG).show();
+    private void displaySuc(boolean isSet) {
+    	if(isSet) {
+    		Toast.makeText(MainActivity.this, "挑战成功", Toast.LENGTH_LONG).show();
+    		MainActivity.this.findViewById(R.id.main_imgBg).setBackgroundColor(getResources().getColor(R.color.lemonchiffon));
+    	}
+    	else {
+    		MainActivity.this.findViewById(R.id.main_imgBg).setBackgroundDrawable(getResources().getDrawable(R.drawable.list_background));
+    	}
     }
     
     /*
@@ -200,6 +208,7 @@ public class MainActivity extends Activity {
     	super.onResume();
         displayScore();
         displayBtnType();
+        displaySuc(false);
     }
     
     @Override

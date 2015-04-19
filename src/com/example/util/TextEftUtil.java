@@ -31,7 +31,7 @@ public class TextEftUtil {
 			R.anim.alpha_scale3,
 			R.anim.alpha_scale4,
 			R.anim.alpha_scale5,
-            R.anim.shake
+            // R.anim.shake
 		};
 		mTxtColors = new int[] {
 			Color.GRAY,
@@ -170,11 +170,12 @@ public class TextEftUtil {
 	private void loadAnimation(TextView txtView) {
 		int range = (int) (Math.random() * mAnimIDs.length);
         int animID = mAnimIDs[range];
-		int colorRange = (int) (Math.random() * mTxtColors.length);
+		// int colorRange = (int) (Math.random() * mTxtColors.length);
         Animation animation = AnimationUtils.loadAnimation(mContext, animID);
         animation.setAnimationListener(mAsListener);
         txtView.startAnimation(animation);
-		txtView.setTextColor(mTxtColors[colorRange]);
+        // 防止同时出现两种同样的颜色
+		txtView.setTextColor(mTxtColors[range]);
 	}
 	
 }

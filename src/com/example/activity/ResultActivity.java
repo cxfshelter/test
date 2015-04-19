@@ -50,7 +50,21 @@ public class ResultActivity extends Activity implements OnClickListener {
 	
 	private void resetConfig() {
 		TimeMgr.setIsSuccess(false);
+		
 	}
+	
+	private void displayEnd() {
+		View bgView = ResultActivity.this.findViewById(R.id.result_imgBg);
+		if(TimeMgr.getIsSuccess()) {
+			bgView.setBackgroundColor(getResources().getColor(R.color.lemonchiffon));
+		}
+		else {
+			bgView.setBackgroundDrawable(getResources().getDrawable(R.drawable.list_background));
+		}
+	}
+	
+	
+	///////////////////////////////////////
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +72,7 @@ public class ResultActivity extends Activity implements OnClickListener {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_result);
 		initResources();
+		displayEnd();
 	}
 	
 	@Override
