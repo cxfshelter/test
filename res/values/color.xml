@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="lightyellow">#FFFFE0</color> 		<!-- 亮黄色 	 -->
+    <color name="lemonchiffon">#FFFACD</color>		<!-- 柠檬绸色	 -->
+    <color name="navy">#000080</color>				<!-- 海军色	 -->
+</resources>
