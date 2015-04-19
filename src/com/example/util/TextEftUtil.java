@@ -38,7 +38,8 @@ public class TextEftUtil {
 			Color.BLUE,
 			Color.RED,
 			Color.WHITE,
-			Color.CYAN
+			Color.CYAN,
+			Color.LTGRAY
 		};
 	}
 	
@@ -178,12 +179,12 @@ public class TextEftUtil {
 	
 	private void loadAnimation(TextView txtView) {
 		int range = (int) (Math.random() * mAnims.size());
-        int colorRange = (int) (Math.random() * mTxtColors.length);
+        // int colorRange = (int) (Math.random() * mTxtColors.length);
         Animation animation = mAnims.get(range);
         animation.setAnimationListener(mAsListener);
         txtView.clearAnimation();
         txtView.startAnimation(animation);
-		txtView.setTextColor(mTxtColors[colorRange]);
+		txtView.setTextColor(mTxtColors[range]);
 	}
 	
 }
