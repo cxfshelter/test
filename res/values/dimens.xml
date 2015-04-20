@@ -17,7 +17,7 @@
     
     <dimen name="result_time_text">40sp</dimen>
     <dimen name="result_time_marginbottom">75dp</dimen>
-    <dimen name="result_text_conStr">32sp</dimen>
-    <dimen name="result_texttime_margintop">35dp</dimen>
+    <dimen name="result_text_conStr">28sp</dimen>
+    <dimen name="result_texttime_margintop">30dp</dimen>
 
 </resources>

@@ -11,13 +11,13 @@
     
     <TextView
         android:id="@+id/textConStr"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:gravity="left"
-        android:layout_marginBottom="@dimen/result_texttime_margintop"
+        android:gravity="center_horizontal"
         android:layout_above="@+id/textFinalTime"
+        android:layout_marginBottom="@dimen/result_texttime_margintop"
         android:textSize="@dimen/result_text_conStr"
-        android:textColor="@android:color/primary_text_light_nodisable" />
+        android:textColor="@android:color/black" />
     
     <TextView
         android:id="@+id/textFinalTime"
@@ -27,7 +27,7 @@
         android:layout_centerVertical="true"
         android:layout_marginBottom="@dimen/result_time_marginbottom"
         android:textSize="@dimen/result_time_text"
-        android:textColor="@android:color/black" />
+        android:textColor="@color/gold" />
 
     <Button
         android:id="@+id/shareBtn"

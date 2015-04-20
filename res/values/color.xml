@@ -2,5 +2,13 @@
 <resources>
     <color name="lightyellow">#FFFFE0</color> 		<!-- 亮黄色 	 -->
     <color name="lemonchiffon">#FFFACD</color>		<!-- 柠檬绸色	 -->
+    
+    <color name="gold">#FFD700</color>				<!-- 金色 		 -->
+    
+    <color name="darkorange">#FF8C00</color>		<!-- 暗桔黄色	 -->
     <color name="navy">#000080</color>				<!-- 海军色	 -->
+    <color name="mintcream">#F5FFFA</color>			<!-- 薄荷色 	 -->
+    <color name="linen">#FAF0E6</color>				<!-- 亚麻色	 -->
+    <color name="ghostwhite">#F8F8FF</color>		<!-- 幽灵白 	 -->
+    <color name="indianred">#CD5C5C</color>			<!-- 印第安红 	 -->
 </resources>

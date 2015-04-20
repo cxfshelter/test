@@ -7,7 +7,6 @@ import com.example.test2.R;
 import com.example.util.TimeMgr.TimeState;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.view.animation.Animation;
@@ -33,12 +32,12 @@ public class TextEftUtil {
 			R.anim.alpha_scale5,
 		};
 		mTxtColors = new int[] {
-			Color.GRAY,
-			Color.BLUE,
-			Color.RED,
-			Color.WHITE,
-			Color.CYAN,
-			Color.LTGRAY
+			R.color.darkorange,
+			R.color.navy,
+			R.color.mintcream,
+			R.color.linen,
+			R.color.indianred,
+			R.color.ghostwhite,
 		};
 	}
 	
@@ -174,7 +173,7 @@ public class TextEftUtil {
         Animation animation = AnimationUtils.loadAnimation(mContext, animID);
         animation.setAnimationListener(mAsListener);
         txtView.startAnimation(animation);
-		txtView.setTextColor(mTxtColors[range]);
+		txtView.setTextColor(mContext.getResources().getColor(mTxtColors[range]));
 	}
 	
 }
