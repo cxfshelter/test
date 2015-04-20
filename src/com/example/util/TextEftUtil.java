@@ -7,6 +7,7 @@ import com.example.test2.R;
 import com.example.util.TimeMgr.TimeState;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.View;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.view.animation.Animation;
@@ -92,7 +93,11 @@ public class TextEftUtil {
 		TextView txtView; 
 		for(int i=0; i<num; i++) {
 			txtView = new TextView(context);
-			mInstance.mViews.add(txtView);
+            //加入字体
+            Typeface tf = Typeface.createFromAsset(mContext.getAssets(),
+                    "fonts/hksnzt.ttf");
+            txtView.setTypeface(tf);
+            mInstance.mViews.add(txtView);
 		}
 		return mInstance;
 	}
