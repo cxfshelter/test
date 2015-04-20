@@ -13,7 +13,7 @@
     
     <dimen name="main_widgetSpace">100dp</dimen>
     <dimen name="main_btn_width">280dp</dimen>
-    <dimen name="main_time_text">40sp</dimen>
+    <dimen name="main_time_text">60sp</dimen>
     
     <dimen name="result_time_text">40sp</dimen>
     <dimen name="result_time_marginbottom">75dp</dimen>

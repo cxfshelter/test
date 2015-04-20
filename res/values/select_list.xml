@@ -9,8 +9,11 @@
         <item>10秒</item>
         <item>30分钟</item>
         <item>1小时</item>
+      	<item>4小时</item>
+        <!-- 
         <item>自定义时间</item>
         <item>挑战极限</item>
+         -->
     </string-array>
     
     <!-- 必须与上面一一对应 -->
@@ -19,6 +22,7 @@
         <item>10</item>
         <item>1800</item>
         <item>3600</item>
+        <item>14400</item>
     </integer-array>
     
 </resources>

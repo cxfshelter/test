@@ -7,8 +7,8 @@
     
     <color name="darkorange">#FF8C00</color>		<!-- 暗桔黄色	 -->
     <color name="navy">#000080</color>				<!-- 海军色	 -->
-    <color name="mintcream">#F5FFFA</color>			<!-- 薄荷色 	 -->
-    <color name="linen">#FAF0E6</color>				<!-- 亚麻色	 -->
-    <color name="ghostwhite">#F8F8FF</color>		<!-- 幽灵白 	 -->
+    <color name="lightsteelblue">#B0C4DE</color>	<!-- 亮钢兰色          -->
+    <color name="chocolate">#D2691E</color>			<!-- 巧可力色 	 -->
     <color name="indianred">#CD5C5C</color>			<!-- 印第安红 	 -->
+    <color name="aquamarine">#7FFFD4</color>		<!-- 碧绿色	 -->
 </resources>

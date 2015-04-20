@@ -34,10 +34,10 @@ public class TextEftUtil {
 		mTxtColors = new int[] {
 			R.color.darkorange,
 			R.color.navy,
-			R.color.mintcream,
-			R.color.linen,
+			R.color.lightsteelblue,
+			R.color.chocolate,
 			R.color.indianred,
-			R.color.ghostwhite,
+			R.color.aquamarine,
 		};
 	}
 	
@@ -170,7 +170,7 @@ public class TextEftUtil {
 		int range = (int) (Math.random() * mAnimIDs.length);
 		int animID = mAnimIDs[range];
         // int colorRange = (int) (Math.random() * mTxtColors.length);
-        Animation animation = AnimationUtils.loadAnimation(mContext, animID);
+		Animation animation = AnimationUtils.loadAnimation(mContext, animID);
         animation.setAnimationListener(mAsListener);
         txtView.startAnimation(animation);
 		txtView.setTextColor(mContext.getResources().getColor(mTxtColors[range]));
