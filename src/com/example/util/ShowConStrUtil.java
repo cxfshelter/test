@@ -1,6 +1,6 @@
 package com.example.util;
 
-import com.example.test2.R;
+import com.gdhysz.savehumen.R;
 
 import android.content.Context;
 

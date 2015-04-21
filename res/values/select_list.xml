@@ -5,8 +5,8 @@
     <string name="select_list_toast">你选择了</string>
    	
     <string-array name="select_list_array">
-        <item>5秒</item>
-        <item>10秒</item>
+        <item>30秒</item>
+        <item>10分钟</item>
         <item>30分钟</item>
         <item>1小时</item>
       	<item>4小时</item>
@@ -18,8 +18,8 @@
     
     <!-- 必须与上面一一对应 -->
     <integer-array name="select_list_int"> 
-        <item>5</item>
-        <item>10</item>
+        <item>30</item>
+        <item>600</item>
         <item>1800</item>
         <item>3600</item>
         <item>14400</item>

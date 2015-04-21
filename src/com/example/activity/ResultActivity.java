@@ -11,7 +11,7 @@ import android.widget.TextView;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
-import com.example.test2.R;
+import com.gdhysz.savehumen.R;
 import com.example.util.RecordUtil;
 import com.example.util.ScreenShotUtils;
 import com.example.util.ShowConStrUtil;
