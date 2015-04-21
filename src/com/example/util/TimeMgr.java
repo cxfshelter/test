@@ -23,6 +23,8 @@ public class TimeMgr {
 	private static SelectState mSelState = SelectState.SELECT_TEST;
 	// 是否挑战成功，若为null则选择无极限挑战
 	private static boolean mIsSuccess = false;
+	// 是否展示suc效果
+	private static boolean mIsShowSuc = false;
 	// 正在倒计时的秒数
 	private static int n_time = 0;
 		
@@ -53,7 +55,7 @@ public class TimeMgr {
 	public static boolean checkTime(int selectTime) {
 		if(getIsSuccess()) {
 			// 不展示toast也不用去继续比较，同时不影响挑战结果
-			return false;
+			return true;
 		}
 		
 		boolean isSuc = n_time >= selectTime;
@@ -85,6 +87,14 @@ public class TimeMgr {
 	
 	public static boolean getIsSuccess() {
 		return mIsSuccess;
+	}
+	
+	public static void setIsShowSuc(boolean isShow) {
+		mIsShowSuc = isShow;
+	}
+	
+	public static boolean getIsShowSuc() {
+		return mIsShowSuc;
 	}
 	
 }

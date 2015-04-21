@@ -3,7 +3,7 @@ package com.example.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.test2.R;
+import com.gdhysz.savehumen.R;
 import com.example.util.TimeMgr.TimeState;
 
 import android.content.Context;
@@ -93,10 +93,7 @@ public class TextEftUtil {
 		TextView txtView; 
 		for(int i=0; i<num; i++) {
 			txtView = new TextView(context);
-            //加入字体
-            Typeface tf = Typeface.createFromAsset(mContext.getAssets(),
-                    "fonts/hksnzt.ttf");
-            txtView.setTypeface(tf);
+			txtView.setTypeface(Typeface.MONOSPACE);
             mInstance.mViews.add(txtView);
 		}
 		return mInstance;

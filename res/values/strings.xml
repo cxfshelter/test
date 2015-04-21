@@ -8,6 +8,7 @@
     <string name="main_startBtn">开始</string>
     <string name="main_endBtn">停止</string>
     <string name="main_notstartText">尚未开始</string>
+    <string name="endStr">结束于</string>
     <string name="shareText">分    享</string>
     
 </resources>

@@ -1,21 +1,20 @@
 package com.example.activity;
 
 import com.example.activity.ResultActivity;
+
 import com.example.service.MonitorService;
-import com.example.test2.R;
+import com.gdhysz.savehumen.R;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -87,7 +86,6 @@ public class MainActivity extends Activity {
             	}
             }
         });
-    	
 	}
 
     private void displayScore() {
@@ -137,9 +135,14 @@ public class MainActivity extends Activity {
      * 后期将改变背景颜色（成功界面）
      */
     private void displaySuc(boolean isSet) {
+    	if(TimeMgr.getIsShowSuc()) {
+    		return;
+    	}
+    	
     	if(isSet) {
     		Toast.makeText(MainActivity.this, "挑战成功", Toast.LENGTH_LONG).show();
     		MainActivity.this.findViewById(R.id.main_imgBg).setBackgroundColor(getResources().getColor(R.color.lemonchiffon));
+    		TimeMgr.setIsShowSuc(true);
     	}
     	else {
     		MainActivity.this.findViewById(R.id.main_imgBg).setBackgroundDrawable(getResources().getDrawable(R.drawable.list_background));
@@ -157,7 +160,7 @@ public class MainActivity extends Activity {
 		mTask = new MyTimerTask();
 		mTimer.schedule(mTask, 500, 1000);
 		TimeMgr.setState(TimeState.TIME_ING);
-	         
+	    
 		displayBtnType();
 		displayTxtEft();
     }
@@ -208,7 +211,8 @@ public class MainActivity extends Activity {
     	super.onResume();
         displayScore();
         displayBtnType();
-        displaySuc(false);
+        displaySuc(TimeMgr.checkTime(
+				BackUpUtils.getInstance(MainActivity.this).getSelectInt(TimeMgr.getSelState().ordinal())));
     }
     
     @Override

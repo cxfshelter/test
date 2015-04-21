@@ -2,6 +2,7 @@ package com.example.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -11,7 +12,7 @@ import android.widget.TextView;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
-import com.example.test2.R;
+import com.gdhysz.savehumen.R;
 import com.example.util.RecordUtil;
 import com.example.util.ScreenShotUtils;
 import com.example.util.ShowConStrUtil;
@@ -22,14 +23,19 @@ public class ResultActivity extends Activity implements OnClickListener {
 	private ShowConStrUtil mTeaseUtil;
 	private TextView mTextTime;
 	private TextView mConStr;
+	private TextView mEndDate;
 	private Button mShareBtn;
 	private static final String TAG="ResultActivity";
 	
 	private void initResources() {
+		String endDayStr = DateUtils.formatDateTime(this, System.currentTimeMillis(), DateUtils.FORMAT_SHOW_WEEKDAY);
+		String endTimeStr = DateUtils.formatDateTime(this, System.currentTimeMillis(), DateUtils.FORMAT_SHOW_TIME);
+		
 		mTeaseUtil = ShowConStrUtil.createEmptyWorkingUtil(this, TimeMgr.getTime());
 		
 		mTextTime = (TextView) findViewById(R.id.textFinalTime);
 		mConStr = (TextView) findViewById(R.id.textConStr);
+		mEndDate = (TextView) findViewById(R.id.textEndDate);
 		mShareBtn = (Button)findViewById(R.id.shareBtn);
 
         int bestScore = RecordUtil.getBestScore(this);
@@ -44,19 +50,20 @@ public class ResultActivity extends Activity implements OnClickListener {
         // mTextTime.setText(TimeMgr.getTime() + "s");
         mTextTime.setText(RecordUtil.getDisplayFormatScore(TimeMgr.getTime()));
 		mConStr.setText(mTeaseUtil.getTeaseStr());
+		mEndDate.setText(getResources().getString(R.string.endStr) + endDayStr + endTimeStr);
 		mShareBtn.setOnClickListener(this);
-		TimeMgr.resetTime();
 	}
 	
 	private void resetConfig() {
 		TimeMgr.setIsSuccess(false);
-		
+		TimeMgr.setIsShowSuc(false);
 	}
 	
 	private void displayEnd() {
 		View bgView = ResultActivity.this.findViewById(R.id.result_imgBg);
 		if(TimeMgr.getIsSuccess()) {
 			bgView.setBackgroundColor(getResources().getColor(R.color.lemonchiffon));
+			resetConfig();
 		}
 		else {
 			bgView.setBackgroundDrawable(getResources().getDrawable(R.drawable.list_background));
@@ -73,11 +80,11 @@ public class ResultActivity extends Activity implements OnClickListener {
 		setContentView(R.layout.activity_result);
 		initResources();
 		displayEnd();
+		TimeMgr.resetTime();
 	}
 	
 	@Override
 	protected void onPause() {
-		resetConfig();
 		super.onPause();
 	}
 

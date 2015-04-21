@@ -10,6 +10,14 @@
         android:background="@drawable/list_background" />
     
     <TextView
+        android:id="@+id/textEndDate"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_above="@+id/textConStr"
+        android:textSize="@dimen/result_text_endStr" />
+    
+	<TextView
         android:id="@+id/textConStr"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

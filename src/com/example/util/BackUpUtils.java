@@ -2,7 +2,7 @@ package com.example.util;
 
 import android.content.Context;
 
-import com.example.test2.R;
+import com.gdhysz.savehumen.R;
 
 public class BackUpUtils {
 	private static BackUpUtils mInstance;
