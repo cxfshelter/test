@@ -187,7 +187,9 @@ public class MainActivity extends Activity {
 		
 		Intent intent = new Intent();
 		intent.setClass(MainActivity.this, ResultActivity.class);
-		startActivity(intent);
+		if(intent.resolveActivity(getPackageManager()) != null) {
+			startActivity(intent);
+		}
 	}
 	
 	// --------------------------------------------
