@@ -26,6 +26,7 @@ public class ResultActivity extends Activity implements OnClickListener {
 	private TextView mEndDate;
 	private Button mShareBtn;
 	private static final String TAG="ResultActivity";
+	private static final String BAIDU_APK_DOWNLOAD_URL="http://shouji.baidu.com/software/item?docid=7724040&from=as";
 	
 	private void initResources() {
 		String endDayStr = DateUtils.formatDateTime(this, System.currentTimeMillis(), DateUtils.FORMAT_SHOW_WEEKDAY);
@@ -116,7 +117,7 @@ public class ResultActivity extends Activity implements OnClickListener {
 		// title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
 		oks.setTitle("你能hold住吗？");
 		// titleUrl是标题的网络链接，仅在人人网和QQ空间使用
-		oks.setTitleUrl("https://github.com/cxfshelter/test");
+		oks.setTitleUrl(BAIDU_APK_DOWNLOAD_URL);
 		// text是分享文本，所有平台都需要这个字段
 		// imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
 		// url仅在微信（包括好友和朋友圈）中使用
