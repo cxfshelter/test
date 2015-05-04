@@ -45,10 +45,12 @@
 
     <Button
         android:id="@+id/btnStart"
-        android:layout_width="@dimen/main_btn_width"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textTime"
         android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/main_btn_margin_left"
+        android:layout_marginRight="@dimen/main_btn_margin_right"
         android:text="@string/main_startBtn"
         android:textSize="@dimen/all_btn_size"
         android:background="@drawable/start_btn" />
