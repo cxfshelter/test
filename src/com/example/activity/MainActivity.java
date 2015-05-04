@@ -141,11 +141,12 @@ public class MainActivity extends Activity {
     	
     	if(isSet) {
     		Toast.makeText(MainActivity.this, "挑战成功", Toast.LENGTH_LONG).show();
-    		MainActivity.this.findViewById(R.id.main_imgBg).setBackgroundColor(getResources().getColor(R.color.lemonchiffon));
+    		MainActivity.this.findViewById(R.id.main_imgBg).setBackgroundColor(getResources().getColor(Config.SUC_COLOR_ID));
     		TimeMgr.setIsShowSuc(true);
     	}
     	else {
-    		MainActivity.this.findViewById(R.id.main_imgBg).setBackgroundDrawable(getResources().getDrawable(R.drawable.list_background));
+    		// MainActivity.this.findViewById(R.id.main_imgBg).setBackgroundDrawable(getResources().getDrawable(R.drawable.list_background));
+    		MainActivity.this.findViewById(R.id.main_imgBg).setBackgroundColor(getResources().getColor(Config.FAL_COLOR_ID));
     	}
     }
     

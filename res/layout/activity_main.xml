@@ -9,7 +9,7 @@
         android:id="@+id/main_imgBg"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@drawable/list_background" />
+        android:background="@color/lightsteelblue" />
     
     <TextView
         android:id="@+id/tvBestScore"
@@ -38,6 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/result_time_marginbottom"
         android:text="@string/main_notstartText"
         android:textSize="@dimen/main_time_text"
         android:textColor="@android:color/black" />
@@ -47,7 +48,6 @@
         android:layout_width="@dimen/main_btn_width"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textTime"
-        android:layout_marginTop="@dimen/main_widgetSpace"
         android:layout_centerHorizontal="true"
         android:text="@string/main_startBtn"
         android:textSize="@dimen/all_btn_size"

@@ -13,6 +13,7 @@ import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
 import com.gdhysz.savehumen.R;
+import com.example.util.Config;
 import com.example.util.RecordUtil;
 import com.example.util.ScreenShotUtils;
 import com.example.util.ShowConStrUtil;
@@ -63,11 +64,12 @@ public class ResultActivity extends Activity implements OnClickListener {
 	private void displayEnd() {
 		View bgView = ResultActivity.this.findViewById(R.id.result_imgBg);
 		if(TimeMgr.getIsSuccess()) {
-			bgView.setBackgroundColor(getResources().getColor(R.color.lemonchiffon));
+			bgView.setBackgroundColor(getResources().getColor(Config.SUC_COLOR_ID));
 			resetConfig();
 		}
 		else {
-			bgView.setBackgroundDrawable(getResources().getDrawable(R.drawable.list_background));
+			// bgView.setBackgroundDrawable(getResources().getDrawable(R.drawable.list_background));
+			bgView.setBackgroundColor(getResources().getColor(Config.FAL_COLOR_ID));
 		}
 	}
 	
