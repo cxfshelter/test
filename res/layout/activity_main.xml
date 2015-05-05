@@ -17,8 +17,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="@dimen/middle_margin"
-        android:layout_marginLeft="@dimen/middle_margin"
+        android:layout_marginTop="@dimen/main_txt_topleft"
+        android:layout_marginLeft="@dimen/main_txt_topleft"
         android:textSize="@dimen/best_score_text"
         android:textColor="@android:color/black"/>
 
@@ -27,8 +27,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvBestScore"
-        android:layout_marginLeft="@dimen/middle_margin"
-        android:layout_marginTop="@dimen/middle_margin"
+        android:layout_marginLeft="@dimen/main_txt_topleft"
+        android:layout_marginTop="@dimen/main_txt_topleft"
         android:textSize="@dimen/best_score_text"
         android:textColor="@android:color/black" />
 

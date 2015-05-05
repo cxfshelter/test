@@ -14,6 +14,6 @@ public class Config {
 	public static final int MAIN_EFCTXT_NUM = 4;
 	
 	public static final int SUC_COLOR_ID = R.color.lemonchiffon;
-	public static final int FAL_COLOR_ID = R.color.mintcream;
+	public static final int FAL_COLOR_ID = R.color.mediumslateblue;
 	
 }

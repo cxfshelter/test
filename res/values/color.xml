@@ -13,5 +13,6 @@
     <color name="aquamarine">#7FFFD4</color>		<!-- 碧绿色	 -->
     
     <color name="mintcream">#F5FFFA</color>			<!--薄荷色 -->
+    <color name="mediumslateblue">#7B68EE</color>	<!--中暗蓝色-->
     
 </resources>
