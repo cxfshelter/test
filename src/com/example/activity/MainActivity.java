@@ -190,6 +190,7 @@ public class MainActivity extends Activity {
 		intent.setClass(MainActivity.this, ResultActivity.class);
 		if(intent.resolveActivity(getPackageManager()) != null) {
 			startActivity(intent);
+			overridePendingTransition(android.R.anim.slide_out_right, android.R.anim.fade_out);
 		}
 	}
 	
