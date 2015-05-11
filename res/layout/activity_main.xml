@@ -55,4 +55,14 @@
         android:textSize="@dimen/all_btn_size"
         android:background="@drawable/start_btn" />
 
+    <Button
+        android:id="@+id/btnUpdate"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:visibility="gone"
+        android:background="@drawable/update_btn" />
+
 </RelativeLayout>
