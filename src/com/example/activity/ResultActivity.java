@@ -1,6 +1,7 @@
 package com.example.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -90,7 +91,7 @@ public class ResultActivity extends Activity implements OnClickListener {
 	protected void onPause() {
 		super.onPause();
 	}
-
+	
 	@Override
 	public void onClick(View view)
 	{

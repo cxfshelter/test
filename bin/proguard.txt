@@ -1,0 +1,21 @@
+# view AndroidManifest.xml #generated:67
+-keep class cn.bmob.v3.update.UpdateDialogActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:43
+-keep class cn.sharesdk.framework.ShareSDKUIShell { <init>(...); }
+
+# view AndroidManifest.xml #generated:26
+-keep class com.example.activity.MainActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:37
+-keep class com.example.activity.ResultActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:60
+-keep class com.example.activity.wxapi.WXEntryActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:21
+-keep class com.example.application.BaseApplication { <init>(...); }
+
+# view AndroidManifest.xml #generated:71
+-keep class com.example.service.MonitorService { <init>(...); }
+
