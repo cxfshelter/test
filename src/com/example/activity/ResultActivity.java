@@ -1,8 +1,12 @@
 package com.example.activity;
 
+import java.util.HashMap;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +14,9 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
@@ -29,6 +36,17 @@ public class ResultActivity extends Activity implements OnClickListener {
 	private Button mShareBtn;
 	private static final String TAG="ResultActivity";
 	private static final String BAIDU_APK_DOWNLOAD_URL="http://shouji.baidu.com/software/item?docid=7724040&from=as";
+	private Handler handler  = new Handler()
+	{
+		@Override
+		public void handleMessage(Message msg)
+		{
+			// 分享成功（失败）之后的操作
+//			Toast.makeText(ResultActivity.this, "Res Share", Toast.LENGTH_SHORT).show();
+			super.handleMessage(msg);
+		}
+		
+	};
 	
 	private void initResources() {
 		String endDayStr = DateUtils.formatDateTime(this, System.currentTimeMillis(), DateUtils.FORMAT_SHOW_WEEKDAY);
@@ -136,8 +154,43 @@ public class ResultActivity extends Activity implements OnClickListener {
 //		oks.setImageUrl("http://img2.cache.netease.com/tech/2015/4/7/2015040709103419de7.jpg");
 		Log.i(TAG, ScreenShotUtils.getSDCardPath()+"/Demo/ScreenImages"+"/screenshot.png");
 		
+		//设置自定义回调
+		oks.setCallback(new OneKeyShareCallBack());
+		
 		// 启动分享GUI
 		oks.show(this);
 	}
 	
+	/**
+	 * OneKeyShareCallBack
+	 * 所有社交平台的回调，这个是子线程，不是主线程，所有UI处理等操作必须使用Handler操作 
+	 * @author Gao
+	 */
+	public class OneKeyShareCallBack implements PlatformActionListener
+	{
+
+		@Override
+		public void onCancel(Platform arg0, int arg1)
+		{
+			// TODO Auto-generated method stub
+			handler.sendEmptyMessage(1);
+		}
+
+		@Override
+		public void onComplete(Platform arg0, int arg1,
+				HashMap<String, Object> arg2)
+		{
+			// TODO Auto-generated method stub
+			handler.sendEmptyMessage(1);
+		}
+
+		@Override
+		public void onError(Platform arg0, int arg1, Throwable arg2)
+		{
+			// TODO Auto-generated method stub
+			handler.sendEmptyMessage(1);
+			
+		}
+		
+	}
 }
