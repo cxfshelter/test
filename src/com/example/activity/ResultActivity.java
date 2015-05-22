@@ -144,12 +144,12 @@ public class ResultActivity extends Activity implements OnClickListener {
 		// url仅在微信（包括好友和朋友圈）中使用
 //		oks.setUrl("http://10.163.7.91:8080/scrawl/publish/10.jpg");
 		// comment是我对这条分享的评论，仅在人人网和QQ空间使用
-		oks.setComment("哥能在【远离手机APP】坚持"+shareTime+"，你能hold住吗？");
+		oks.setComment("哥能在【扔掉手机APP】坚持"+shareTime+"，你能hold住吗？");
 		// site是分享此内容的网站名称，仅在QQ空间使用
 		oks.setSite(this.getString(R.string.app_name));
 		// siteUrl是分享此内容的网站地址，仅在QQ空间使用
 //		oks.setSiteUrl("http://10.163.7.91:8080/scrawl");
-		oks.setText("哥能在【远离手机APP】坚持"+shareTime+"，你能hold住吗？");
+		oks.setText("哥能在【扔掉手机APP】坚持"+shareTime+"，你能hold住吗？");
 		oks.setImagePath(ScreenShotUtils.getSDCardPath()+"/Demo/ScreenImages"+"/screenshot.png");
 //		oks.setImageUrl("http://img2.cache.netease.com/tech/2015/4/7/2015040709103419de7.jpg");
 		Log.i(TAG, ScreenShotUtils.getSDCardPath()+"/Demo/ScreenImages"+"/screenshot.png");
